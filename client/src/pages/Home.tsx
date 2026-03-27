@@ -55,7 +55,6 @@ export default function Home() {
     setFormStatus("loading");
 
     try {
-      // Using Formspree for email handling (update with your form ID)
       const response = await fetch("https://formspree.io/f/xyzabc123", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -63,7 +62,7 @@ export default function Home() {
           name: formData.name,
           email: formData.email,
           message: formData.message,
-          _subject: "New Contact from Lemonade Bloom Haul Away",
+          _subject: "New Booking Request from Lemonade Bloom",
           _replyto: formData.email,
         }),
       });
@@ -114,7 +113,7 @@ export default function Home() {
             </a>
           </div>
           <Button className="bg-primary hover:bg-primary/90 text-white shadow-lg hover:shadow-xl transition-all">
-            <a href="tel:+14049191860" className="flex items-center gap-2">
+            <a href="tel:+14049191860" className="flex items-center gap-2 text-white">
               <Phone className="w-4 h-4" />
               Call Now
             </a>
@@ -132,7 +131,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-r from-primary/70 via-primary/50 to-transparent"></div>
 
         <div className="relative z-10 container mx-auto px-4 text-white max-w-3xl animate-fade-in-up">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight drop-shadow-lg">
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight drop-shadow-lg text-white">
             Your Space, Transformed
           </h1>
           <p className="text-xl md:text-2xl mb-8 font-light drop-shadow-md">
@@ -152,7 +151,7 @@ export default function Home() {
               variant="outline"
               className="border-2 border-white text-white hover:bg-white/10 px-8 py-6 text-lg font-bold"
             >
-              <a href="#services">Learn More</a>
+              <a href="#services" className="text-white">Learn More</a>
             </Button>
           </div>
         </div>
@@ -231,7 +230,7 @@ export default function Home() {
                   <h3 className="text-xl font-bold text-primary mb-3">{service.title}</h3>
                   <p className="text-gray-600 mb-4">{service.description}</p>
                   <Button className="w-full bg-primary hover:bg-primary/90 text-white">
-                    <a href="tel:+14049191860" className="flex items-center justify-center gap-2 w-full">
+                    <a href="#contact" className="flex items-center justify-center gap-2 w-full text-white">
                       Book Service <ArrowRight className="w-4 h-4" />
                     </a>
                   </Button>
@@ -356,20 +355,20 @@ export default function Home() {
           <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             {[
               {
-                name: "Basic",
+                name: "Small Room",
                 price: "$99",
-                features: ["Single Room Cleanout", "Same-Day Service", "Eco-Friendly Disposal"],
+                features: ["Small Room Cleanout", "Same-Day Service", "Eco-Friendly Disposal"],
               },
               {
-                name: "Standard",
+                name: "Medium Haul",
                 price: "$199",
-                features: ["Multi-Room Cleanout", "Priority Scheduling", "Recycling & Donation", "Free Quote"],
+                features: ["Medium Junk Removal", "Priority Scheduling", "Recycling & Donation", "Free Quote"],
                 highlighted: true,
               },
               {
-                name: "Premium",
+                name: "Large Haul",
                 price: "$299",
-                features: ["Full Property Cleanout", "24/7 Support", "Complete Cleanup", "Guaranteed Satisfaction"],
+                features: ["Large Property Cleanout", "24/7 Support", "Complete Cleanup", "Guaranteed Satisfaction"],
               },
             ].map((plan, idx) => (
               <Card
@@ -395,17 +394,19 @@ export default function Home() {
                     </li>
                   ))}
                 </ul>
-                <Button
-                  className={`w-full ${
-                    plan.highlighted
-                      ? "bg-white text-primary hover:bg-gray-100"
-                      : "bg-primary text-white hover:bg-primary/90"
-                  }`}
-                >
-                  <a href="tel:+14049191860" className="w-full">
-                    Book Now
-                  </a>
-                </Button>
+              <Button
+                className={`w-full ${
+                  plan.highlighted
+                    ? "bg-white text-primary hover:bg-gray-100"
+                    : "bg-primary text-white hover:bg-primary/90"
+                }`}
+              >
+                <a href="#contact" className={`w-full ${
+                  plan.highlighted ? "text-primary" : "text-white"
+                }`}>
+                  Book Now
+                </a>
+              </Button>
               </Card>
             ))}
           </div>
@@ -464,38 +465,38 @@ export default function Home() {
 
           {/* Contact Form */}
           <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-2xl p-8 border-2 border-gray-200 animate-fade-in-up">
-            <h3 className="text-2xl font-bold text-primary mb-6">Send us a Message</h3>
+            <h3 className="text-2xl font-bold text-primary mb-6">Book Your Service</h3>
             <form onSubmit={handleFormSubmit} className="space-y-6">
               <div>
-                <label className="block text-sm font-bold text-gray-700 mb-2">Name</label>
+                <label className="block text-sm font-bold text-gray-700 mb-2">Your Name</label>
                 <input
                   type="text"
                   required
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-secondary focus:outline-none transition-colors"
-                  placeholder="Your name"
+                  placeholder="John Doe"
                 />
               </div>
               <div>
-                <label className="block text-sm font-bold text-gray-700 mb-2">Email</label>
+                <label className="block text-sm font-bold text-gray-700 mb-2">Your Email</label>
                 <input
                   type="email"
                   required
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-secondary focus:outline-none transition-colors"
-                  placeholder="your@email.com"
+                  placeholder="john@example.com"
                 />
               </div>
               <div>
-                <label className="block text-sm font-bold text-gray-700 mb-2">Message</label>
+                <label className="block text-sm font-bold text-gray-700 mb-2">Service Details</label>
                 <textarea
                   required
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-secondary focus:outline-none transition-colors h-32 resize-none"
-                  placeholder="Tell us about your junk removal needs..."
+                  placeholder="Describe your junk removal needs (e.g., small room, medium haul, large haul)..."
                 ></textarea>
               </div>
               <Button
@@ -510,7 +511,7 @@ export default function Home() {
                 <p className="text-green-600 font-semibold text-center animate-fade-in-up">Message sent successfully!</p>
               )}
               {formStatus === "error" && (
-                <p className="text-red-600 font-semibold text-center animate-fade-in-up">Error sending message. Please try calling us instead.</p>
+                <p className="text-red-600 font-semibold text-center animate-fade-in-up">Error sending message. Please call (404) 919-1860 to book.</p>
               )}
             </form>
           </div>
@@ -520,36 +521,36 @@ export default function Home() {
       {/* Footer */}
       <footer className="bg-primary text-white py-12">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-4 gap-8 mb-8">
+            <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
-              <h4 className="font-bold mb-4 text-secondary">Lemonade Bloom</h4>
-              <p className="text-gray-100">Professional junk removal and hauling services with an eco-friendly heart.</p>
+              <h4 className="font-bold mb-4 text-white">Lemonade Bloom</h4>
+              <p className="text-white">Professional junk removal and hauling services with an eco-friendly heart.</p>
             </div>
             <div>
-              <h4 className="font-bold mb-4 text-secondary">Services</h4>
-              <ul className="space-y-2 text-gray-100">
-                <li><a href="#services" className="hover:text-white transition-colors">Junk Removal</a></li>
-                <li><a href="#services" className="hover:text-white transition-colors">Home Cleanouts</a></li>
-                <li><a href="#services" className="hover:text-white transition-colors">Move-Out Hauling</a></li>
-                <li><a href="#services" className="hover:text-white transition-colors">Same-Day Service</a></li>
+              <h4 className="font-bold mb-4 text-white">Services</h4>
+              <ul className="space-y-2 text-white">
+                <li><a href="#services" className="hover:text-secondary transition-colors">Junk Removal</a></li>
+                <li><a href="#services" className="hover:text-secondary transition-colors">Home Cleanouts</a></li>
+                <li><a href="#services" className="hover:text-secondary transition-colors">Move-Out Hauling</a></li>
+                <li><a href="#services" className="hover:text-secondary transition-colors">Same-Day Service</a></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-bold mb-4 text-secondary">Company</h4>
-              <ul className="space-y-2 text-gray-100">
-                <li><a href="#why-choose" className="hover:text-white transition-colors">About Us</a></li>
-                <li><a href="#testimonials" className="hover:text-white transition-colors">Reviews</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Careers</a></li>
-                <li><a href="#contact" className="hover:text-white transition-colors">Contact</a></li>
+              <h4 className="font-bold mb-4 text-white">Company</h4>
+              <ul className="space-y-2 text-white">
+                <li><a href="#why-choose" className="hover:text-secondary transition-colors">About Us</a></li>
+                <li><a href="#testimonials" className="hover:text-secondary transition-colors">Reviews</a></li>
+                <li><a href="#" className="hover:text-secondary transition-colors">Careers</a></li>
+                <li><a href="#contact" className="hover:text-secondary transition-colors">Contact</a></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-bold mb-4 text-secondary">Quick Links</h4>
-              <ul className="space-y-2 text-gray-100">
-                <li><a href="tel:+14049191860" className="hover:text-white transition-colors">(404) 919-1860</a></li>
-                <li><a href="mailto:LemonadeBloom@gmail.com" className="hover:text-white transition-colors">Email</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Terms of Service</a></li>
+              <h4 className="font-bold mb-4 text-white">Quick Links</h4>
+              <ul className="space-y-2 text-white">
+                <li><a href="tel:+14049191860" className="hover:text-secondary transition-colors">(404) 919-1860</a></li>
+                <li><a href="mailto:lemonadeblooms@gmail.com" className="hover:text-secondary transition-colors">lemonadeblooms@gmail.com</a></li>
+                <li><a href="#" className="hover:text-secondary transition-colors">Privacy Policy</a></li>
+                <li><a href="#" className="hover:text-secondary transition-colors">Terms of Service</a></li>
               </ul>
             </div>
           </div>
