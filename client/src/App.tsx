@@ -18,17 +18,17 @@ function Router() {
   );
 }
 
-// NOTE: About Theme
-// - First choose a default theme according to your design style (dark or light bg), than change color palette in index.css
-//   to keep consistent foreground/background color across components
-// - If you want to make theme switchable, pass `switchable` ThemeProvider and use `useTheme` hook
+// NOTE: Design Philosophy
+// Lemonade Bloom Haul Away uses a Premium Eco-Conscious Minimalism aesthetic
+// - Light theme with deep green (#2F6F5E) primary and soft blue (#3A7CA5) secondary
+// - Playfair Display serif for headings, Montserrat sans-serif for body
+// - Ample whitespace, smooth animations, trust-building elements
 
 function App() {
   return (
     <ErrorBoundary>
       <ThemeProvider
         defaultTheme="light"
-        // switchable
       >
         <TooltipProvider>
           <Toaster />
