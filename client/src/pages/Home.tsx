@@ -156,7 +156,7 @@ export default function Home() {
       {/* Quick Quote Process Section - Green Background */}
       <section className="py-16 bg-secondary text-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12">Get Your Quote in 3 Simple Steps</h2>
+          <h2 className="text-5xl md:text-6xl font-black text-center mb-12 drop-shadow-lg">Get Your Quote in 3 Simple Steps</h2>
           <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             {[
               {
@@ -248,7 +248,7 @@ export default function Home() {
       {/* Why Choose Us Section - Green Background */}
       <section id="why-choose" className="py-20 bg-secondary text-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12">Why Choose Lemonade Bloom</h2>
+          <h2 className="text-5xl md:text-6xl font-black text-center mb-12 drop-shadow-lg">Why Choose Lemonade Bloom</h2>
 
           <div className="grid md:grid-cols-4 gap-6 mb-12 max-w-5xl mx-auto">
             {[
