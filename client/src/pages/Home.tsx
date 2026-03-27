@@ -1,13 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { ChevronRight, Leaf, Truck, CheckCircle, Star, Phone, Mail, MapPin, Send } from "lucide-react";
+import { ChevronRight, Leaf, Truck, CheckCircle, Star, Phone, Mail, MapPin, Send, ArrowRight } from "lucide-react";
 import { useState, useEffect } from "react";
 
 /**
- * Design Philosophy: Bold Blue & Gold Modern Design
- * - Deep navy blue (#1E3A8A) primary, bright blue (#3B82F6) secondary
- * - Gold (#F59E0B) accent for premium feel
- * - Dynamic animations and visual effects for engagement
+ * Design Philosophy: Bold Green & Dark Navy Modern Design
+ * - Dark navy primary (#1B4D3E), bright green secondary (#22C55E)
+ * - Clean, professional layout inspired by service industry leaders
+ * - Smooth, seamless animations throughout
  */
 
 export default function Home() {
@@ -15,6 +15,7 @@ export default function Home() {
   const [showFloatingCTA, setShowFloatingCTA] = useState(false);
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [formStatus, setFormStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [visibleReviews, setVisibleReviews] = useState<number[]>([]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,12 +27,35 @@ export default function Home() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    // Animate review cards on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const index = parseInt(entry.target.getAttribute("data-index") || "0");
+          setVisibleReviews((prev) => {
+            if (!prev.includes(index)) {
+              return [...prev, index];
+            }
+            return prev;
+          });
+        }
+      });
+    });
+
+    document.querySelectorAll("[data-review]").forEach((el) => {
+      observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormStatus("loading");
 
     try {
-      // Send email via FormSubmit.co (free service that sends to your email)
+      // Using Formspree for email handling (update with your form ID)
       const response = await fetch("https://formspree.io/f/xyzabc123", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -64,35 +88,35 @@ export default function Home() {
       <header
         className={`sticky top-0 z-50 transition-all duration-300 ${
           isScrolled
-            ? "bg-white shadow-lg"
-            : "bg-transparent"
+            ? "bg-white shadow-xl"
+            : "bg-white/95 backdrop-blur-sm"
         }`}
       >
         <nav className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2 animate-fade-in-up">
-            <img
-              src="https://d2xsxph8kpxj0f.cloudfront.net/310519663439414161/AwKDmHFk4xyRYJ3UhPwEnr/lemonade-bloom-logo-XSxHwzhhHtzr59EiCZ8ge8.webp"
-              alt="Lemonade Bloom Haul Away"
-              className="h-10 w-auto"
-            />
+            <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+              <Truck className="w-6 h-6 text-white" />
+            </div>
+            <span className="font-bold text-lg text-primary">Lemonade Bloom</span>
           </div>
           <div className="hidden md:flex gap-8">
             <a href="#services" className="text-gray-700 hover:text-primary transition-colors font-medium">
               Services
             </a>
-            <a href="#before-after" className="text-gray-700 hover:text-primary transition-colors font-medium">
-              Before & After
+            <a href="#why-choose" className="text-gray-700 hover:text-primary transition-colors font-medium">
+              Why Us
             </a>
             <a href="#testimonials" className="text-gray-700 hover:text-primary transition-colors font-medium">
-              Testimonials
+              Reviews
             </a>
             <a href="#contact" className="text-gray-700 hover:text-primary transition-colors font-medium">
               Contact
             </a>
           </div>
-          <Button className="bg-primary hover:bg-secondary text-white shadow-lg hover:shadow-xl transition-all">
-            <a href="#booking" className="flex items-center gap-2">
-              Book Now
+          <Button className="bg-primary hover:bg-primary/90 text-white shadow-lg hover:shadow-xl transition-all">
+            <a href="tel:+14049191860" className="flex items-center gap-2">
+              <Phone className="w-4 h-4" />
+              Call Now
             </a>
           </Button>
         </nav>
@@ -101,73 +125,117 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <img
-          src="https://d2xsxph8kpxj0f.cloudfront.net/310519663439414161/AwKDmHFk4xyRYJ3UhPwEnr/hero-junk-removal-nm8SwF7eBWvmTGEsxvDVk4.webp"
-          alt="Clean, organized living room"
+          src="https://d2xsxph8kpxj0f.cloudfront.net/310519663439414161/AwKDmHFk4xyRYJ3UhPwEnr/hero-junk-removal-professional-mAiVtbLsiMQJhPVjveaMVZ.webp"
+          alt="Professional junk removal service"
           className="absolute inset-0 w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/60 to-secondary/40"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/70 via-primary/50 to-transparent"></div>
 
-        <div className="relative z-10 container mx-auto px-4 text-center text-white max-w-3xl animate-fade-in-up">
+        <div className="relative z-10 container mx-auto px-4 text-white max-w-3xl animate-fade-in-up">
           <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight drop-shadow-lg">
             Your Space, Transformed
           </h1>
           <p className="text-xl md:text-2xl mb-8 font-light drop-shadow-md">
             Professional junk removal and hauling services. Same-day appointments available.
           </p>
-          <Button
-            size="lg"
-            className="bg-accent hover:bg-yellow-500 text-primary px-8 py-6 text-lg font-bold shadow-xl hover:shadow-2xl transition-all animate-pulse-glow"
-          >
-            <a href="#booking" className="flex items-center gap-2">
-              Book Your Haul Away <ChevronRight className="w-5 h-5" />
-            </a>
-          </Button>
+          <div className="flex gap-4">
+            <Button
+              size="lg"
+              className="bg-secondary hover:bg-green-500 text-white px-8 py-6 text-lg font-bold shadow-xl hover:shadow-2xl transition-all animate-pulse-glow"
+            >
+              <a href="tel:+14049191860" className="flex items-center gap-2">
+                Book Now <ChevronRight className="w-5 h-5" />
+              </a>
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="border-2 border-white text-white hover:bg-white/10 px-8 py-6 text-lg font-bold"
+            >
+              <a href="#services">Learn More</a>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose Us Section */}
+      <section id="why-choose" className="py-20 bg-gradient-to-b from-white to-gray-50">
+        <div className="container mx-auto px-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-primary animate-fade-in-up">
+            Why Choose Us
+          </h2>
+          <p className="text-center text-gray-600 mb-16 max-w-2xl mx-auto animate-fade-in-up">
+            We're committed to providing the best junk removal experience with professionalism and care.
+          </p>
+
+          <div className="grid md:grid-cols-4 gap-6">
+            {[
+              { number: "100+", label: "Happy Customers", icon: "👥" },
+              { number: "95%", label: "Satisfaction Rate", icon: "⭐" },
+              { number: "8+", label: "Years Experience", icon: "🏆" },
+              { number: "10+", label: "Service Areas", icon: "🗺️" },
+            ].map((stat, idx) => (
+              <Card
+                key={idx}
+                className="p-8 bg-white border-2 border-gray-200 shadow-lg hover:shadow-xl hover:border-secondary transition-all hover:scale-105 hover:-translate-y-2 duration-300 animate-fade-in-up text-center"
+                style={{ animationDelay: `${idx * 0.1}s` }}
+              >
+                <div className="text-5xl mb-4">{stat.icon}</div>
+                <div className="text-4xl font-bold text-primary mb-2">{stat.number}</div>
+                <p className="text-gray-600 font-semibold">{stat.label}</p>
+              </Card>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* Services Section */}
-      <section id="services" className="py-20 bg-gradient-to-b from-white to-blue-50">
+      <section id="services" className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-primary animate-fade-in-up">
             Our Services
           </h2>
           <p className="text-center text-gray-600 mb-16 max-w-2xl mx-auto animate-fade-in-up">
-            We handle all types of junk removal with professionalism and care. From single items to complete home cleanouts.
+            We handle all types of junk removal with professionalism and care.
           </p>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                icon: Truck,
-                title: "Junk Removal",
-                description: "Remove unwanted items from your home or office quickly and efficiently.",
+                title: "Residential Cleaning",
+                description: "Home cleanouts, garage clearing, and basement junk removal.",
+                image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663439414161/AwKDmHFk4xyRYJ3UhPwEnr/services-residential-ajzazJ3Uhk3RSpXL3vmYGN.webp",
               },
               {
-                icon: Leaf,
-                title: "Eco-Friendly",
-                description: "We donate, recycle, and dispose responsibly to protect the environment.",
+                title: "Office Cleaning",
+                description: "Commercial space cleanup and office junk removal services.",
+                image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663439414161/AwKDmHFk4xyRYJ3UhPwEnr/services-commercial-9j5J38kHf6eEZof9ogNKVF.webp",
               },
               {
-                icon: CheckCircle,
-                title: "Same-Day Service",
-                description: "Need it done today? We offer same-day appointments in your area.",
-              },
-              {
-                icon: Truck,
-                title: "Move-Out Hauling",
-                description: "Complete cleanout services for moving, downsizing, or property prep.",
+                title: "Junk Hauling",
+                description: "Large item removal and complete property cleanouts.",
+                image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663439414161/AwKDmHFk4xyRYJ3UhPwEnr/before-after-junk-removal-CKdhaYMV63UTvXCtgyS94y.webp",
               },
             ].map((service, idx) => (
               <Card
                 key={idx}
-                className="p-8 bg-white border-2 border-secondary shadow-lg hover:shadow-2xl transition-all hover:scale-105 hover:-translate-y-2 duration-300 animate-fade-in-up"
+                className="overflow-hidden bg-white border-2 border-gray-200 shadow-lg hover:shadow-2xl transition-all hover:scale-105 hover:-translate-y-2 duration-300 animate-fade-in-up"
                 style={{ animationDelay: `${idx * 0.1}s` }}
               >
-                <div className="bg-gradient-to-br from-primary to-secondary p-4 rounded-lg w-fit mb-4">
-                  <service.icon className="w-8 h-8 text-white" />
+                <img
+                  src={service.image}
+                  alt={service.title}
+                  className="w-full h-48 object-cover"
+                />
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-primary mb-3">{service.title}</h3>
+                  <p className="text-gray-600 mb-4">{service.description}</p>
+                  <Button className="w-full bg-primary hover:bg-primary/90 text-white">
+                    <a href="tel:+14049191860" className="flex items-center justify-center gap-2 w-full">
+                      Book Service <ArrowRight className="w-4 h-4" />
+                    </a>
+                  </Button>
                 </div>
-                <h3 className="text-xl font-bold text-primary mb-3">{service.title}</h3>
-                <p className="text-gray-600">{service.description}</p>
               </Card>
             ))}
           </div>
@@ -175,46 +243,71 @@ export default function Home() {
       </section>
 
       {/* Before & After Section */}
-      <section id="before-after" className="py-20 bg-white">
+      <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="container mx-auto px-4">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-primary animate-fade-in-up">
             See the Transformation
           </h2>
           <p className="text-center text-gray-600 mb-16 max-w-2xl mx-auto animate-fade-in-up">
-            Real results from real customers. Watch how we transform cluttered spaces into clean, organized havens.
+            Real results from real customers. Watch how we transform cluttered spaces.
           </p>
 
           <div className="relative rounded-2xl overflow-hidden shadow-2xl hover:shadow-3xl transition-shadow animate-scale-in">
             <img
-              src="https://d2xsxph8kpxj0f.cloudfront.net/310519663439414161/AwKDmHFk4xyRYJ3UhPwEnr/before-after-transformation-de9FjQ7eCjQumuD5uhM3K5.webp"
+              src="https://d2xsxph8kpxj0f.cloudfront.net/310519663439414161/AwKDmHFk4xyRYJ3UhPwEnr/before-after-junk-removal-CKdhaYMV63UTvXCtgyS94y.webp"
               alt="Before and after transformation"
               className="w-full h-auto"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+          </div>
+        </div>
+      </section>
+
+      {/* Team Section */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-primary animate-fade-in-up">
+            Our Team
+          </h2>
+          <p className="text-center text-gray-600 mb-16 max-w-2xl mx-auto animate-fade-in-up">
+            Professional, friendly, and dedicated to your satisfaction.
+          </p>
+
+          <div className="flex justify-center">
+            <Card className="p-8 bg-white border-2 border-gray-200 shadow-lg max-w-2xl animate-scale-in">
+              <img
+                src="https://d2xsxph8kpxj0f.cloudfront.net/310519663439414161/AwKDmHFk4xyRYJ3UhPwEnr/team-junk-removal-UEfcVv9QbmvUjvRCBi3NJD.webp"
+                alt="Professional team"
+                className="w-full rounded-lg mb-6"
+              />
+              <h3 className="text-2xl font-bold text-primary text-center mb-2">Meet Our Team</h3>
+              <p className="text-gray-600 text-center">
+                Our experienced professionals are trained to handle all types of junk removal with care and efficiency.
+              </p>
+            </Card>
           </div>
         </div>
       </section>
 
       {/* Testimonials Section */}
-      <section id="testimonials" className="py-20 bg-gradient-to-b from-blue-50 to-white">
+      <section id="testimonials" className="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="container mx-auto px-4">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-primary animate-fade-in-up">
-            What Our Customers Say
+            Client Reviews
           </h2>
           <p className="text-center text-gray-600 mb-16 max-w-2xl mx-auto animate-fade-in-up">
-            Thousands of satisfied customers have trusted us with their junk removal needs.
+            See what our satisfied customers have to say about our services.
           </p>
 
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
                 name: "Sarah Johnson",
-                text: "Lemonade Bloom made my move-out so easy. Professional, friendly, and incredibly efficient. Highly recommend!",
+                text: "Best cleaning service ever! Professional, friendly, and incredibly efficient. Highly recommend!",
                 rating: 5,
               },
               {
                 name: "Michael Chen",
-                text: "Same-day service was a lifesaver. They removed everything from my garage in just a few hours. Amazing team!",
+                text: "Same-day service was a lifesaver. They removed everything from my garage in just a few hours. Amazing!",
                 rating: 5,
               },
               {
@@ -225,14 +318,20 @@ export default function Home() {
             ].map((testimonial, idx) => (
               <Card
                 key={idx}
-                className="p-8 bg-white border-l-4 border-accent shadow-lg hover:shadow-xl transition-all animate-fade-in-up"
+                data-review
+                data-index={idx}
+                className={`p-8 bg-white border-l-4 border-secondary shadow-lg hover:shadow-xl transition-all ${
+                  visibleReviews.includes(idx)
+                    ? "animate-slide-up"
+                    : "opacity-0"
+                }`}
                 style={{ animationDelay: `${idx * 0.1}s` }}
               >
                 <div className="flex gap-1 mb-4">
                   {[...Array(testimonial.rating)].map((_, i) => (
                     <Star
                       key={i}
-                      className="w-5 h-5 fill-accent text-accent"
+                      className="w-5 h-5 fill-secondary text-secondary"
                     />
                   ))}
                 </div>
@@ -244,74 +343,77 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Trust Section */}
-      <section className="py-20 bg-gradient-to-r from-primary via-secondary to-primary text-white relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-accent rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent rounded-full blur-3xl"></div>
-        </div>
-
-        <div className="container mx-auto px-4 relative z-10">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 animate-fade-in-up">
-            Why Choose Lemonade Bloom?
+      {/* Pricing Section */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-primary animate-fade-in-up">
+            Pricing Plans
           </h2>
+          <p className="text-center text-gray-600 mb-16 max-w-2xl mx-auto animate-fade-in-up">
+            Transparent pricing with no hidden fees. Choose the plan that fits your needs.
+          </p>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             {[
-              { number: "1000+", label: "Happy Customers" },
-              { number: "100%", label: "Eco-Friendly Disposal" },
-              { number: "24/7", label: "Booking Available" },
-              { number: "$0", label: "Hidden Fees" },
-            ].map((stat, idx) => (
-              <div
+              {
+                name: "Basic",
+                price: "$99",
+                features: ["Single Room Cleanout", "Same-Day Service", "Eco-Friendly Disposal"],
+              },
+              {
+                name: "Standard",
+                price: "$199",
+                features: ["Multi-Room Cleanout", "Priority Scheduling", "Recycling & Donation", "Free Quote"],
+                highlighted: true,
+              },
+              {
+                name: "Premium",
+                price: "$299",
+                features: ["Full Property Cleanout", "24/7 Support", "Complete Cleanup", "Guaranteed Satisfaction"],
+              },
+            ].map((plan, idx) => (
+              <Card
                 key={idx}
-                className="text-center p-6 bg-white/10 backdrop-blur-sm rounded-xl hover:bg-white/20 transition-all animate-fade-in-up"
+                className={`p-8 border-2 shadow-lg hover:shadow-xl transition-all hover:scale-105 hover:-translate-y-2 duration-300 animate-fade-in-up ${
+                  plan.highlighted
+                    ? "bg-primary text-white border-secondary"
+                    : "bg-white text-gray-900 border-gray-200"
+                }`}
                 style={{ animationDelay: `${idx * 0.1}s` }}
               >
-                <div className="text-5xl font-bold mb-2 text-accent">{stat.number}</div>
-                <p className="text-lg font-semibold">{stat.label}</p>
-              </div>
+                <h3 className={`text-2xl font-bold mb-2 ${plan.highlighted ? "text-white" : "text-primary"}`}>
+                  {plan.name}
+                </h3>
+                <div className={`text-4xl font-bold mb-6 ${plan.highlighted ? "text-green-300" : "text-secondary"}`}>
+                  {plan.price}
+                </div>
+                <ul className="space-y-3 mb-8">
+                  {plan.features.map((feature, i) => (
+                    <li key={i} className="flex items-center gap-2">
+                      <CheckCircle className={`w-5 h-5 ${plan.highlighted ? "text-green-300" : "text-secondary"}`} />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+                <Button
+                  className={`w-full ${
+                    plan.highlighted
+                      ? "bg-white text-primary hover:bg-gray-100"
+                      : "bg-primary text-white hover:bg-primary/90"
+                  }`}
+                >
+                  <a href="tel:+14049191860" className="w-full">
+                    Book Now
+                  </a>
+                </Button>
+              </Card>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Booking Section */}
-      <section id="booking" className="py-20 bg-white">
-        <div className="container mx-auto px-4 max-w-2xl">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-primary animate-fade-in-up">
-            Schedule Your Service
-          </h2>
-          <p className="text-center text-gray-600 mb-12 animate-fade-in-up">
-            Call us now or book your appointment online. We're ready to help!
-          </p>
-
-          <div className="bg-gradient-to-br from-primary to-secondary rounded-2xl p-8 text-white shadow-2xl animate-scale-in">
-            <div className="text-center mb-8">
-              <Phone className="w-16 h-16 mx-auto mb-4 text-accent" />
-              <h3 className="text-3xl font-bold mb-2">Call Now</h3>
-              <a
-                href="tel:+14049191860"
-                className="text-4xl font-bold text-accent hover:text-yellow-300 transition-colors"
-              >
-                (404) 919-1860
-              </a>
-            </div>
-            <p className="text-center text-blue-100 mb-8">
-              Available 24/7 for same-day bookings. Quick response time guaranteed.
-            </p>
-            <Button
-              className="w-full bg-accent hover:bg-yellow-500 text-primary font-bold py-6 text-lg"
-              asChild
-            >
-              <a href="tel:+14049191860">Call Now to Book</a>
-            </Button>
-          </div>
-        </div>
-      </section>
-
       {/* Contact Section */}
-      <section id="contact" className="py-20 bg-gradient-to-b from-blue-50 to-white">
+      <section id="contact" className="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="container mx-auto px-4">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-primary animate-fade-in-up">
             Get in Touch
@@ -343,10 +445,10 @@ export default function Home() {
             ].map((contact, idx) => (
               <Card
                 key={idx}
-                className="p-8 bg-white border-2 border-secondary shadow-lg hover:shadow-xl transition-all hover:scale-105 animate-fade-in-up"
+                className="p-8 bg-white border-2 border-gray-200 shadow-lg hover:shadow-xl transition-all hover:scale-105 animate-fade-in-up"
                 style={{ animationDelay: `${idx * 0.1}s` }}
               >
-                <div className="bg-gradient-to-br from-primary to-secondary p-4 rounded-lg w-fit mx-auto mb-4">
+                <div className="bg-primary p-4 rounded-lg w-fit mx-auto mb-4">
                   <contact.icon className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="text-xl font-bold text-primary mb-2 text-center">{contact.title}</h3>
@@ -361,7 +463,7 @@ export default function Home() {
           </div>
 
           {/* Contact Form */}
-          <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-2xl p-8 border-2 border-secondary animate-fade-in-up">
+          <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-2xl p-8 border-2 border-gray-200 animate-fade-in-up">
             <h3 className="text-2xl font-bold text-primary mb-6">Send us a Message</h3>
             <form onSubmit={handleFormSubmit} className="space-y-6">
               <div>
@@ -399,16 +501,16 @@ export default function Home() {
               <Button
                 type="submit"
                 disabled={formStatus === "loading"}
-                className="w-full bg-primary hover:bg-secondary text-white font-bold py-3 text-lg transition-all disabled:opacity-50"
+                className="w-full bg-primary hover:bg-primary/90 text-white font-bold py-3 text-lg transition-all disabled:opacity-50"
               >
                 <Send className="w-5 h-5 mr-2" />
                 {formStatus === "loading" ? "Sending..." : "Send Message"}
               </Button>
               {formStatus === "success" && (
-                <p className="text-green-600 font-semibold text-center">Message sent successfully!</p>
+                <p className="text-green-600 font-semibold text-center animate-fade-in-up">Message sent successfully!</p>
               )}
               {formStatus === "error" && (
-                <p className="text-red-600 font-semibold text-center">Error sending message. Please try again.</p>
+                <p className="text-red-600 font-semibold text-center animate-fade-in-up">Error sending message. Please try calling us instead.</p>
               )}
             </form>
           </div>
@@ -420,12 +522,12 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
-              <h4 className="font-bold mb-4 text-accent">Lemonade Bloom</h4>
-              <p className="text-blue-100">Professional junk removal and hauling services with an eco-friendly heart.</p>
+              <h4 className="font-bold mb-4 text-secondary">Lemonade Bloom</h4>
+              <p className="text-gray-100">Professional junk removal and hauling services with an eco-friendly heart.</p>
             </div>
             <div>
-              <h4 className="font-bold mb-4 text-accent">Services</h4>
-              <ul className="space-y-2 text-blue-100">
+              <h4 className="font-bold mb-4 text-secondary">Services</h4>
+              <ul className="space-y-2 text-gray-100">
                 <li><a href="#services" className="hover:text-white transition-colors">Junk Removal</a></li>
                 <li><a href="#services" className="hover:text-white transition-colors">Home Cleanouts</a></li>
                 <li><a href="#services" className="hover:text-white transition-colors">Move-Out Hauling</a></li>
@@ -433,24 +535,25 @@ export default function Home() {
               </ul>
             </div>
             <div>
-              <h4 className="font-bold mb-4 text-accent">Company</h4>
-              <ul className="space-y-2 text-blue-100">
-                <li><a href="#" className="hover:text-white transition-colors">About Us</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Blog</a></li>
+              <h4 className="font-bold mb-4 text-secondary">Company</h4>
+              <ul className="space-y-2 text-gray-100">
+                <li><a href="#why-choose" className="hover:text-white transition-colors">About Us</a></li>
+                <li><a href="#testimonials" className="hover:text-white transition-colors">Reviews</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Careers</a></li>
                 <li><a href="#contact" className="hover:text-white transition-colors">Contact</a></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-bold mb-4 text-accent">Quick Links</h4>
-              <ul className="space-y-2 text-blue-100">
-                <li><a href="#booking" className="hover:text-white transition-colors">Book Now</a></li>
+              <h4 className="font-bold mb-4 text-secondary">Quick Links</h4>
+              <ul className="space-y-2 text-gray-100">
                 <li><a href="tel:+14049191860" className="hover:text-white transition-colors">(404) 919-1860</a></li>
                 <li><a href="mailto:LemonadeBloom@gmail.com" className="hover:text-white transition-colors">Email</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Terms of Service</a></li>
               </ul>
             </div>
           </div>
-          <div className="border-t border-blue-400 pt-8 text-center text-blue-100">
+          <div className="border-t border-green-700 pt-8 text-center text-gray-100">
             <p>&copy; 2024 Lemonade Bloom Haul Away. All rights reserved.</p>
           </div>
         </div>
@@ -458,10 +561,10 @@ export default function Home() {
 
       {/* Floating CTA Button */}
       {showFloatingCTA && (
-        <div className="fixed bottom-8 right-8 z-40 animate-bounce">
+        <div className="fixed bottom-8 right-8 z-40 animate-float">
           <Button
             size="lg"
-            className="bg-accent hover:bg-yellow-500 text-primary rounded-full shadow-2xl hover:shadow-3xl transition-all font-bold text-lg animate-pulse-glow"
+            className="bg-secondary hover:bg-green-500 text-white rounded-full shadow-2xl hover:shadow-3xl transition-all font-bold text-lg"
           >
             <a href="tel:+14049191860" className="flex items-center gap-2">
               <Phone className="w-6 h-6" />

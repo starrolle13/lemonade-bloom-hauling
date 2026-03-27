@@ -43,23 +43,23 @@
 }
 
 :root {
-  /* Lemonade Bloom Haul Away - Bold Blue & Gold Modern Design */
+  /* Lemonade Bloom Haul Away - Bold Green & Dark Navy Modern Design */
   /* Primary brand colors */
-  --primary: #1E3A8A;
+  --primary: #1B4D3E;
   --primary-foreground: #FFFFFF;
-  --sidebar-primary: #1E3A8A;
+  --sidebar-primary: #1B4D3E;
   --sidebar-primary-foreground: #FFFFFF;
   
   /* Secondary and accent colors */
-  --secondary: #3B82F6;
+  --secondary: #22C55E;
   --secondary-foreground: #FFFFFF;
-  --accent: #F59E0B;
-  --accent-foreground: #1F2937;
+  --accent: #22C55E;
+  --accent-foreground: #FFFFFF;
   
   /* Semantic colors */
   --background: #FFFFFF;
   --foreground: #1F2937;
-  --card: #F3F4F6;
+  --card: #F9FAFB;
   --card-foreground: #1F2937;
   --popover: #FFFFFF;
   --popover-foreground: #1F2937;
@@ -67,9 +67,9 @@
   --muted-foreground: #6B7280;
   --destructive: #EF4444;
   --destructive-foreground: #FFFFFF;
-  --border: #D1D5DB;
-  --input: #F3F4F6;
-  --ring: #3B82F6;
+  --border: #E5E7EB;
+  --input: #F9FAFB;
+  --ring: #22C55E;
   
   /* Sidebar colors */
   --sidebar: #FFFFFF;
@@ -80,11 +80,11 @@
   --sidebar-ring: #2F6F5E;
   
   /* Chart colors */
-  --chart-1: #1E3A8A;
-  --chart-2: #3B82F6;
-  --chart-3: #60A5FA;
-  --chart-4: #F59E0B;
-  --chart-5: #FBBF24;
+  --chart-1: #1B4D3E;
+  --chart-2: #22C55E;
+  --chart-3: #4ADE80;
+  --chart-4: #86EFAC;
+  --chart-5: #BBF7D0;
   
   /* Spacing and radius */
   --radius: 0.375rem;
@@ -239,10 +239,41 @@
   
   @keyframes pulse-glow {
     0%, 100% {
-      box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
+      box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
     }
     50% {
-      box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
+      box-shadow: 0 0 0 10px rgba(34, 197, 94, 0);
+    }
+  }
+  
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes rotateIn {
+    from {
+      opacity: 0;
+      transform: rotate(-5deg) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: rotate(0) scale(1);
     }
   }
   
@@ -274,6 +305,18 @@
   
   .animate-pulse-glow {
     animation: pulse-glow 2s infinite;
+  }
+  
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  .animate-slide-up {
+    animation: slideUp 0.7s ease-out;
+  }
+  
+  .animate-rotate-in {
+    animation: rotateIn 0.6s ease-out;
   }
   
   /**
