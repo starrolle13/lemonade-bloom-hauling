@@ -2,6 +2,12 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ChevronRight, Leaf, Truck, CheckCircle, Star, Phone, Mail, MapPin, Send, ArrowRight } from "lucide-react";
 import { useState, useEffect } from "react";
+import { useForm, ValidationError } from "@formspree/react";
+
+interface FormspreeError {
+  field: string;
+  message: string;
+}
 
 /**
  * Design Philosophy: Bold Green & Dark Navy Modern Design
@@ -13,9 +19,8 @@ import { useState, useEffect } from "react";
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [showFloatingCTA, setShowFloatingCTA] = useState(false);
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
-  const [formStatus, setFormStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [visibleReviews, setVisibleReviews] = useState<number[]>([]);
+  const [state, handleSubmit] = useForm("xaqlqywg");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -50,36 +55,7 @@ export default function Home() {
     return () => observer.disconnect();
   }, []);
 
-  const handleFormSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setFormStatus("loading");
 
-    try {
-      const response = await fetch("https://formspree.io/f/xyzabc123", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          message: formData.message,
-          _subject: "New Booking Request from Lemonade Bloom",
-          _replyto: formData.email,
-        }),
-      });
-
-      if (response.ok) {
-        setFormStatus("success");
-        setFormData({ name: "", email: "", message: "" });
-        setTimeout(() => setFormStatus("idle"), 3000);
-      } else {
-        setFormStatus("error");
-        setTimeout(() => setFormStatus("idle"), 3000);
-      }
-    } catch {
-      setFormStatus("error");
-      setTimeout(() => setFormStatus("idle"), 3000);
-    }
-  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -134,7 +110,7 @@ export default function Home() {
           <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight drop-shadow-lg text-white">
             Your Space, Transformed
           </h1>
-          <p className="text-xl md:text-2xl mb-8 font-light drop-shadow-md">
+          <p className="text-xl md:text-2xl mb-8 font-light drop-shadow-md text-secondary">
             Professional junk removal and hauling services. Same-day appointments available.
           </p>
           <div className="flex gap-4">
@@ -355,9 +331,9 @@ export default function Home() {
           <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             {[
               {
-                name: "Small Room",
+                name: "Small Haul",
                 price: "$99",
-                features: ["Small Room Cleanout", "Same-Day Service", "Eco-Friendly Disposal"],
+                features: ["Small Haul Cleanout", "Same-Day Service", "Eco-Friendly Disposal"],
               },
               {
                 name: "Medium Haul",
@@ -373,23 +349,29 @@ export default function Home() {
             ].map((plan, idx) => (
               <Card
                 key={idx}
-                className={`p-8 border-2 shadow-lg hover:shadow-xl transition-all hover:scale-105 hover:-translate-y-2 duration-300 animate-fade-in-up ${
+                className={`p-8 border-2 shadow-lg hover:shadow-xl transition-all hover:scale-105 hover:-translate-y-2 duration-300 animate-fade-in-up flex flex-col ${
                   plan.highlighted
                     ? "bg-primary text-white border-secondary"
                     : "bg-white text-gray-900 border-gray-200"
                 }`}
                 style={{ animationDelay: `${idx * 0.1}s` }}
               >
-                <h3 className={`text-2xl font-bold mb-2 ${plan.highlighted ? "text-white" : "text-primary"}`}>
+                <h3 className={`text-2xl font-bold mb-2 ${
+                  plan.highlighted ? "text-white" : "text-primary"
+                }`}>
                   {plan.name}
                 </h3>
-                <div className={`text-4xl font-bold mb-6 ${plan.highlighted ? "text-green-300" : "text-secondary"}`}>
+                <div className={`text-4xl font-bold mb-6 ${
+                  plan.highlighted ? "text-green-300" : "text-secondary"
+                }`}>
                   {plan.price}
                 </div>
-                <ul className="space-y-3 mb-8">
+                <ul className="space-y-3 mb-8 flex-grow">
                   {plan.features.map((feature, i) => (
                     <li key={i} className="flex items-center gap-2">
-                      <CheckCircle className={`w-5 h-5 ${plan.highlighted ? "text-green-300" : "text-secondary"}`} />
+                      <CheckCircle className={`w-5 h-5 ${
+                        plan.highlighted ? "text-green-300" : "text-secondary"
+                      }`} />
                       {feature}
                     </li>
                   ))}
@@ -466,54 +448,58 @@ export default function Home() {
           {/* Contact Form */}
           <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-2xl p-8 border-2 border-gray-200 animate-fade-in-up">
             <h3 className="text-2xl font-bold text-primary mb-6">Book Your Service</h3>
-            <form onSubmit={handleFormSubmit} className="space-y-6">
-              <div>
-                <label className="block text-sm font-bold text-gray-700 mb-2">Your Name</label>
-                <input
-                  type="text"
-                  required
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-secondary focus:outline-none transition-colors"
-                  placeholder="John Doe"
-                />
+            {state.succeeded ? (
+              <div className="text-center py-8">
+                <p className="text-green-600 font-bold text-lg mb-4">✓ Message sent successfully!</p>
+                <p className="text-gray-600">We'll contact you shortly to confirm your booking.</p>
               </div>
-              <div>
-                <label className="block text-sm font-bold text-gray-700 mb-2">Your Email</label>
-                <input
-                  type="email"
-                  required
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-secondary focus:outline-none transition-colors"
-                  placeholder="john@example.com"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-bold text-gray-700 mb-2">Service Details</label>
-                <textarea
-                  required
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-secondary focus:outline-none transition-colors h-32 resize-none"
-                  placeholder="Describe your junk removal needs (e.g., small room, medium haul, large haul)..."
-                ></textarea>
-              </div>
-              <Button
-                type="submit"
-                disabled={formStatus === "loading"}
-                className="w-full bg-primary hover:bg-primary/90 text-white font-bold py-3 text-lg transition-all disabled:opacity-50"
-              >
-                <Send className="w-5 h-5 mr-2" />
-                {formStatus === "loading" ? "Sending..." : "Send Message"}
-              </Button>
-              {formStatus === "success" && (
-                <p className="text-green-600 font-semibold text-center animate-fade-in-up">Message sent successfully!</p>
-              )}
-              {formStatus === "error" && (
-                <p className="text-red-600 font-semibold text-center animate-fade-in-up">Error sending message. Please call (404) 919-1860 to book.</p>
-              )}
-            </form>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div>
+                  <label htmlFor="name" className="block text-sm font-bold text-gray-700 mb-2">Your Name</label>
+                  <input
+                    id="name"
+                    type="text"
+                    name="name"
+                    required
+                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-secondary focus:outline-none transition-colors"
+                    placeholder="John Doe"
+                  />
+                  <ValidationError prefix="Name" field="name" errors={state.errors} />
+                </div>
+                <div>
+                  <label htmlFor="email" className="block text-sm font-bold text-gray-700 mb-2">Your Email</label>
+                  <input
+                    id="email"
+                    type="email"
+                    name="email"
+                    required
+                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-secondary focus:outline-none transition-colors"
+                    placeholder="john@example.com"
+                  />
+                  <ValidationError prefix="Email" field="email" errors={state.errors} />
+                </div>
+                <div>
+                  <label htmlFor="message" className="block text-sm font-bold text-gray-700 mb-2">Service Details</label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    required
+                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-secondary focus:outline-none transition-colors h-32 resize-none"
+                    placeholder="Describe your junk removal needs (e.g., small haul, medium haul, large haul)..."
+                  ></textarea>
+                  <ValidationError prefix="Message" field="message" errors={state.errors} />
+                </div>
+                <Button
+                  type="submit"
+                  disabled={state.submitting}
+                  className="w-full bg-primary hover:bg-primary/90 text-white font-bold py-3 text-lg transition-all disabled:opacity-50"
+                >
+                  <Send className="w-5 h-5 mr-2" />
+                  {state.submitting ? "Sending..." : "Send Message"}
+                </Button>
+              </form>
+            )}
           </div>
         </div>
       </section>
