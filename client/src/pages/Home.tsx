@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { ChevronRight, Leaf, Truck, CheckCircle, Star, Phone, Mail, MapPin, Send, ArrowRight } from "lucide-react";
+import { ChevronRight, Leaf, Truck, CheckCircle, Star, Phone, Mail, MapPin, Send, ArrowRight, Facebook, Instagram, Twitter, Linkedin, MessageCircle, FileText } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useForm, ValidationError } from "@formspree/react";
 
@@ -10,8 +10,9 @@ interface FormspreeError {
 }
 
 /**
- * Design Philosophy: Bold Green & Dark Navy Modern Design
+ * Design Philosophy: Bold Green & Dark Navy Modern Design with Green Accents
  * - Dark navy primary (#1B4D3E), bright green secondary (#22C55E)
+ * - Green background sections for modern, elevated aesthetic
  * - Clean, professional layout inspired by service industry leaders
  * - Smooth, seamless animations throughout
  */
@@ -88,6 +89,21 @@ export default function Home() {
               Contact
             </a>
           </div>
+          {/* Social Media Icons */}
+          <div className="flex gap-3 mr-4">
+            <a href="#facebook" className="text-secondary hover:text-primary transition-colors">
+              <Facebook className="w-5 h-5" />
+            </a>
+            <a href="#instagram" className="text-secondary hover:text-primary transition-colors">
+              <Instagram className="w-5 h-5" />
+            </a>
+            <a href="#twitter" className="text-secondary hover:text-primary transition-colors">
+              <Twitter className="w-5 h-5" />
+            </a>
+            <a href="#linkedin" className="text-secondary hover:text-primary transition-colors">
+              <Linkedin className="w-5 h-5" />
+            </a>
+          </div>
           <Button className="bg-primary hover:bg-primary/90 text-white shadow-lg hover:shadow-xl transition-all">
             <a href="tel:+14049191860" className="flex items-center gap-2 text-white">
               <Phone className="w-4 h-4" />
@@ -99,12 +115,14 @@ export default function Home() {
 
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        <img
-          src="https://d2xsxph8kpxj0f.cloudfront.net/310519663439414161/AwKDmHFk4xyRYJ3UhPwEnr/hero-junk-removal-professional-mAiVtbLsiMQJhPVjveaMVZ.webp"
-          alt="Professional junk removal service"
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/70 via-primary/50 to-transparent"></div>
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: `url('https://d2xsxph8kpxj0f.cloudfront.net/310519663439414161/AwKDmHFk4xyRYJ3UhPwEnr/hero-junk-hauling-black-woman-csa2kyoviCQkocpzevPqQB.webp')`,
+          }}
+        >
+          <div className="absolute inset-0 bg-black/40"></div>
+        </div>
 
         <div className="relative z-10 container mx-auto px-4 text-white max-w-3xl animate-fade-in-up">
           <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight drop-shadow-lg text-white">
@@ -118,48 +136,66 @@ export default function Home() {
               size="lg"
               className="bg-secondary hover:bg-green-500 text-white px-8 py-6 text-lg font-bold shadow-xl hover:shadow-2xl transition-all animate-pulse-glow"
             >
-              <a href="tel:+14049191860" className="flex items-center gap-2">
+              <a href="#contact" className="flex items-center gap-2 text-white">
                 Book Now <ChevronRight className="w-5 h-5" />
               </a>
             </Button>
             <Button
               size="lg"
               variant="outline"
-              className="border-2 border-white text-white hover:bg-white/10 px-8 py-6 text-lg font-bold"
+              className="border-2 border-white text-white hover:bg-white/20 px-8 py-6 text-lg font-bold shadow-xl hover:shadow-2xl transition-all"
             >
-              <a href="#services" className="text-white">Learn More</a>
+              <a href="#services" className="flex items-center gap-2 text-white">
+                Learn More <ArrowRight className="w-5 h-5" />
+              </a>
             </Button>
           </div>
         </div>
       </section>
 
-      {/* Why Choose Us Section */}
-      <section id="why-choose" className="py-20 bg-gradient-to-b from-white to-gray-50">
+      {/* Quick Quote Process Section - Green Background */}
+      <section className="py-16 bg-secondary text-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-primary animate-fade-in-up">
-            Why Choose Us
-          </h2>
-          <p className="text-center text-gray-600 mb-16 max-w-2xl mx-auto animate-fade-in-up">
-            We're committed to providing the best junk removal experience with professionalism and care.
-          </p>
-
-          <div className="grid md:grid-cols-4 gap-6">
+          <h2 className="text-4xl font-bold text-center mb-12">Get Your Quote in 3 Simple Steps</h2>
+          <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             {[
-              { number: "100+", label: "Happy Customers", icon: "👥" },
-              { number: "95%", label: "Satisfaction Rate", icon: "⭐" },
-              { number: "8+", label: "Years Experience", icon: "🏆" },
-              { number: "10+", label: "Service Areas", icon: "🗺️" },
-            ].map((stat, idx) => (
-              <Card
-                key={idx}
-                className="p-8 bg-white border-2 border-gray-200 shadow-lg hover:shadow-xl hover:border-secondary transition-all hover:scale-105 hover:-translate-y-2 duration-300 animate-fade-in-up text-center"
-                style={{ animationDelay: `${idx * 0.1}s` }}
-              >
-                <div className="text-5xl mb-4">{stat.icon}</div>
-                <div className="text-4xl font-bold text-primary mb-2">{stat.number}</div>
-                <p className="text-gray-600 font-semibold">{stat.label}</p>
-              </Card>
-            ))}
+              {
+                step: "1",
+                title: "Text Us a Photo",
+                description: "Send a photo of your haul via text to (404) 919-1860. Include details about what needs to be removed.",
+                icon: MessageCircle,
+              },
+              {
+                step: "2",
+                title: "Get Instant Quote",
+                description: "We'll review your photo and send you a quote within 2 hours. No hidden fees, transparent pricing.",
+                icon: FileText,
+              },
+              {
+                step: "3",
+                title: "Book & Done",
+                description: "Confirm your booking and we'll handle the rest. Fast, professional junk removal service.",
+                icon: CheckCircle,
+              },
+            ].map((item, idx) => {
+              const Icon = item.icon;
+              return (
+                <Card
+                  key={idx}
+                  className="bg-white/10 border-white/20 text-white p-8 rounded-xl hover:bg-white/20 transition-all duration-300 animate-fade-in-up"
+                  style={{ animationDelay: `${idx * 0.1}s` }}
+                >
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                      <Icon className="w-6 h-6" />
+                    </div>
+                    <h3 className="text-2xl font-bold">{item.step}</h3>
+                  </div>
+                  <h4 className="text-xl font-bold mb-3">{item.title}</h4>
+                  <p className="text-white/90">{item.description}</p>
+                </Card>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -167,151 +203,67 @@ export default function Home() {
       {/* Services Section */}
       <section id="services" className="py-20 bg-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-primary animate-fade-in-up">
-            Our Services
-          </h2>
-          <p className="text-center text-gray-600 mb-16 max-w-2xl mx-auto animate-fade-in-up">
-            We handle all types of junk removal with professionalism and care.
+          <h2 className="text-4xl font-bold text-center text-primary mb-4">Our Services</h2>
+          <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+            We handle all types of junk removal and hauling needs with professional care and eco-friendly disposal.
           </p>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {[
               {
-                title: "Residential Cleaning",
-                description: "Home cleanouts, garage clearing, and basement junk removal.",
-                image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663439414161/AwKDmHFk4xyRYJ3UhPwEnr/services-residential-ajzazJ3Uhk3RSpXL3vmYGN.webp",
+                title: "Residential Haul",
+                description: "Home cleanouts, garage junk removal, basement decluttering, and more.",
+                icon: Truck,
               },
               {
-                title: "Office Cleaning",
-                description: "Commercial space cleanup and office junk removal services.",
-                image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663439414161/AwKDmHFk4xyRYJ3UhPwEnr/services-commercial-9j5J38kHf6eEZof9ogNKVF.webp",
+                title: "Commercial Haul",
+                description: "Office cleanouts, construction debris removal, and business waste management.",
+                icon: Leaf,
               },
               {
-                title: "Junk Hauling",
-                description: "Large item removal and complete property cleanouts.",
-                image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663439414161/AwKDmHFk4xyRYJ3UhPwEnr/before-after-junk-removal-CKdhaYMV63UTvXCtgyS94y.webp",
+                title: "Same-Day Service",
+                description: "Need it gone today? We offer same-day junk removal appointments.",
+                icon: CheckCircle,
               },
-            ].map((service, idx) => (
-              <Card
-                key={idx}
-                className="overflow-hidden bg-white border-2 border-gray-200 shadow-lg hover:shadow-2xl transition-all hover:scale-105 hover:-translate-y-2 duration-300 animate-fade-in-up"
-                style={{ animationDelay: `${idx * 0.1}s` }}
-              >
-                <img
-                  src={service.image}
-                  alt={service.title}
-                  className="w-full h-48 object-cover"
-                />
-                <div className="p-6">
+            ].map((service, idx) => {
+              const Icon = service.icon;
+              return (
+                <Card
+                  key={idx}
+                  className="p-8 border-2 border-gray-200 shadow-lg hover:shadow-xl hover:border-secondary transition-all hover:scale-105 hover:-translate-y-2 duration-300 animate-fade-in-up"
+                  style={{ animationDelay: `${idx * 0.1}s` }}
+                >
+                  <div className="w-16 h-16 bg-secondary/10 rounded-lg flex items-center justify-center mb-4">
+                    <Icon className="w-8 h-8 text-secondary" />
+                  </div>
                   <h3 className="text-xl font-bold text-primary mb-3">{service.title}</h3>
-                  <p className="text-gray-600 mb-4">{service.description}</p>
-                  <Button className="w-full bg-primary hover:bg-primary/90 text-white">
-                    <a href="#contact" className="flex items-center justify-center gap-2 w-full text-white">
-                      Book Service <ArrowRight className="w-4 h-4" />
-                    </a>
-                  </Button>
-                </div>
-              </Card>
-            ))}
+                  <p className="text-gray-600">{service.description}</p>
+                </Card>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* Before & After Section */}
-      <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
+      {/* Why Choose Us Section - Green Background */}
+      <section id="why-choose" className="py-20 bg-secondary text-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-primary animate-fade-in-up">
-            See the Transformation
-          </h2>
-          <p className="text-center text-gray-600 mb-16 max-w-2xl mx-auto animate-fade-in-up">
-            Real results from real customers. Watch how we transform cluttered spaces.
-          </p>
+          <h2 className="text-4xl font-bold text-center mb-12">Why Choose Lemonade Bloom</h2>
 
-          <div className="relative rounded-2xl overflow-hidden shadow-2xl hover:shadow-3xl transition-shadow animate-scale-in">
-            <img
-              src="https://d2xsxph8kpxj0f.cloudfront.net/310519663439414161/AwKDmHFk4xyRYJ3UhPwEnr/before-after-junk-removal-CKdhaYMV63UTvXCtgyS94y.webp"
-              alt="Before and after transformation"
-              className="w-full h-auto"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* Team Section */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-primary animate-fade-in-up">
-            Our Team
-          </h2>
-          <p className="text-center text-gray-600 mb-16 max-w-2xl mx-auto animate-fade-in-up">
-            Professional, friendly, and dedicated to your satisfaction.
-          </p>
-
-          <div className="flex justify-center">
-            <Card className="p-8 bg-white border-2 border-gray-200 shadow-lg max-w-2xl animate-scale-in">
-              <img
-                src="https://d2xsxph8kpxj0f.cloudfront.net/310519663439414161/AwKDmHFk4xyRYJ3UhPwEnr/team-junk-removal-UEfcVv9QbmvUjvRCBi3NJD.webp"
-                alt="Professional team"
-                className="w-full rounded-lg mb-6"
-              />
-              <h3 className="text-2xl font-bold text-primary text-center mb-2">Meet Our Team</h3>
-              <p className="text-gray-600 text-center">
-                Our experienced professionals are trained to handle all types of junk removal with care and efficiency.
-              </p>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials Section */}
-      <section id="testimonials" className="py-20 bg-gradient-to-b from-gray-50 to-white">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-primary animate-fade-in-up">
-            Client Reviews
-          </h2>
-          <p className="text-center text-gray-600 mb-16 max-w-2xl mx-auto animate-fade-in-up">
-            See what our satisfied customers have to say about our services.
-          </p>
-
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-4 gap-6 mb-12 max-w-5xl mx-auto">
             {[
-              {
-                name: "Sarah Johnson",
-                text: "Best cleaning service ever! Professional, friendly, and incredibly efficient. Highly recommend!",
-                rating: 5,
-              },
-              {
-                name: "Michael Chen",
-                text: "Same-day service was a lifesaver. They removed everything from my garage in just a few hours. Amazing!",
-                rating: 5,
-              },
-              {
-                name: "Emily Rodriguez",
-                text: "I love that they recycle and donate items. Great service with a conscience. Will definitely use again.",
-                rating: 5,
-              },
-            ].map((testimonial, idx) => (
+              { stat: "500+", label: "Hauls Completed" },
+              { stat: "95%", label: "On-Time Rate" },
+              { stat: "100%", label: "Eco-Friendly Disposal" },
+              { stat: "24/7", label: "Customer Support" },
+            ].map((item, idx) => (
               <Card
                 key={idx}
-                data-review
-                data-index={idx}
-                className={`p-8 bg-white border-l-4 border-secondary shadow-lg hover:shadow-xl transition-all ${
-                  visibleReviews.includes(idx)
-                    ? "animate-slide-up"
-                    : "opacity-0"
-                }`}
+                className="bg-white/10 border-white/20 p-6 text-center rounded-xl hover:bg-white/20 transition-all duration-300 animate-fade-in-up"
                 style={{ animationDelay: `${idx * 0.1}s` }}
               >
-                <div className="flex gap-1 mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className="w-5 h-5 fill-secondary text-secondary"
-                    />
-                  ))}
-                </div>
-                <p className="text-gray-700 mb-4 italic">"{testimonial.text}"</p>
-                <p className="font-bold text-primary">{testimonial.name}</p>
+                <div className="text-3xl font-bold mb-2">{item.stat}</div>
+                <p className="text-white/90">{item.label}</p>
               </Card>
             ))}
           </div>
@@ -321,11 +273,9 @@ export default function Home() {
       {/* Pricing Section */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-primary animate-fade-in-up">
-            Pricing Plans
-          </h2>
-          <p className="text-center text-gray-600 mb-16 max-w-2xl mx-auto animate-fade-in-up">
-            Transparent pricing with no hidden fees. Choose the plan that fits your needs.
+          <h2 className="text-4xl font-bold text-center text-primary mb-4">Simple Pricing</h2>
+          <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+            Transparent pricing with no hidden fees. Choose the package that fits your needs.
           </p>
 
           <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
@@ -376,19 +326,67 @@ export default function Home() {
                     </li>
                   ))}
                 </ul>
-              <Button
-                className={`w-full ${
-                  plan.highlighted
-                    ? "bg-white text-primary hover:bg-gray-100"
-                    : "bg-primary text-white hover:bg-primary/90"
+                <Button
+                  className={`w-full ${
+                    plan.highlighted
+                      ? "bg-white text-primary hover:bg-gray-100"
+                      : "bg-primary text-white hover:bg-primary/90"
+                  }`}
+                >
+                  <a href="#contact" className={`w-full ${
+                    plan.highlighted ? "text-primary" : "text-white"
+                  }`}>
+                    Book Now
+                  </a>
+                </Button>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section id="testimonials" className="py-20 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <h2 className="text-4xl font-bold text-center text-primary mb-12">Customer Reviews</h2>
+
+          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            {[
+              {
+                name: "Sarah Johnson",
+                text: "Best junk removal service I've used! Professional, fast, and affordable.",
+                rating: 5,
+              },
+              {
+                name: "Michael Chen",
+                text: "They removed everything from my garage in just 2 hours. Highly recommend!",
+                rating: 5,
+              },
+              {
+                name: "Jessica Williams",
+                text: "Excellent customer service and they recycled most of my items. Thank you!",
+                rating: 5,
+              },
+            ].map((review, idx) => (
+              <Card
+                key={idx}
+                data-review
+                data-index={idx}
+                className={`p-8 border-2 border-gray-200 shadow-lg rounded-xl transition-all duration-500 ${
+                  visibleReviews.includes(idx)
+                    ? "animate-slide-up opacity-100"
+                    : "opacity-0 translate-y-8"
                 }`}
               >
-                <a href="#contact" className={`w-full ${
-                  plan.highlighted ? "text-primary" : "text-white"
-                }`}>
-                  Book Now
-                </a>
-              </Button>
+                <div className="flex gap-1 mb-4">
+                  {Array(review.rating)
+                    .fill(0)
+                    .map((_, i) => (
+                      <Star key={i} className="w-5 h-5 fill-secondary text-secondary" />
+                    ))}
+                </div>
+                <p className="text-gray-700 mb-4 italic">"{review.text}"</p>
+                <p className="font-bold text-primary">{review.name}</p>
               </Card>
             ))}
           </div>
@@ -396,16 +394,15 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 bg-gradient-to-b from-gray-50 to-white">
+      <section id="contact" className="py-20 bg-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-primary animate-fade-in-up">
-            Get in Touch
-          </h2>
-          <p className="text-center text-gray-600 mb-16 max-w-2xl mx-auto animate-fade-in-up">
-            Have questions? Send us a message and we'll get back to you within 24 hours.
+          <h2 className="text-4xl font-bold text-center text-primary mb-4">Get In Touch</h2>
+          <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+            Ready to get your space cleared? Contact us today or text a photo for a quick quote.
           </p>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto mb-12">
+          {/* Contact Methods */}
+          <div className="grid md:grid-cols-3 gap-8 mb-12 max-w-4xl mx-auto">
             {[
               {
                 icon: Phone,
@@ -414,35 +411,38 @@ export default function Home() {
                 link: "tel:+14049191860",
               },
               {
-                icon: Mail,
-                title: "Email Us",
-                content: "LemonadeBloom@gmail.com",
-                link: "mailto:LemonadeBloom@gmail.com",
+                icon: MessageCircle,
+                title: "Text for Quote",
+                content: "(404) 919-1860",
+                link: "sms:+14049191860",
               },
               {
-                icon: MapPin,
-                title: "Service Area",
-                content: "Local & Surrounding Areas",
-                link: "#",
+                icon: Mail,
+                title: "Email Us",
+                content: "lemonadeblooms@gmail.com",
+                link: "mailto:lemonadeblooms@gmail.com",
               },
-            ].map((contact, idx) => (
-              <Card
-                key={idx}
-                className="p-8 bg-white border-2 border-gray-200 shadow-lg hover:shadow-xl transition-all hover:scale-105 animate-fade-in-up"
-                style={{ animationDelay: `${idx * 0.1}s` }}
-              >
-                <div className="bg-primary p-4 rounded-lg w-fit mx-auto mb-4">
-                  <contact.icon className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="text-xl font-bold text-primary mb-2 text-center">{contact.title}</h3>
-                <a
-                  href={contact.link}
-                  className="text-gray-700 hover:text-secondary transition-colors text-center block font-semibold"
+            ].map((contact, idx) => {
+              const Icon = contact.icon;
+              return (
+                <Card
+                  key={idx}
+                  className="p-8 border-2 border-gray-200 shadow-lg hover:shadow-xl hover:border-secondary transition-all text-center rounded-xl animate-fade-in-up"
+                  style={{ animationDelay: `${idx * 0.1}s` }}
                 >
-                  {contact.content}
-                </a>
-              </Card>
-            ))}
+                  <div className="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Icon className="w-8 h-8 text-secondary" />
+                  </div>
+                  <h3 className="text-xl font-bold text-primary mb-2">{contact.title}</h3>
+                  <a
+                    href={contact.link}
+                    className="text-gray-700 hover:text-secondary transition-colors text-center block font-semibold break-all"
+                  >
+                    {contact.content}
+                  </a>
+                </Card>
+              );
+            })}
           </div>
 
           {/* Contact Form */}
@@ -507,55 +507,58 @@ export default function Home() {
       {/* Footer */}
       <footer className="bg-primary text-white py-12">
         <div className="container mx-auto px-4">
-            <div className="grid md:grid-cols-4 gap-8 mb-8">
+          <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
-              <h4 className="font-bold mb-4 text-white">Lemonade Bloom</h4>
-              <p className="text-white">Professional junk removal and hauling services with an eco-friendly heart.</p>
+              <h4 className="font-bold text-lg mb-4">Lemonade Bloom</h4>
+              <p className="text-white/80">Professional junk removal and hauling services for your home and business.</p>
             </div>
             <div>
-              <h4 className="font-bold mb-4 text-white">Services</h4>
-              <ul className="space-y-2 text-white">
-                <li><a href="#services" className="hover:text-secondary transition-colors">Junk Removal</a></li>
-                <li><a href="#services" className="hover:text-secondary transition-colors">Home Cleanouts</a></li>
-                <li><a href="#services" className="hover:text-secondary transition-colors">Move-Out Hauling</a></li>
-                <li><a href="#services" className="hover:text-secondary transition-colors">Same-Day Service</a></li>
+              <h4 className="font-bold text-lg mb-4">Quick Links</h4>
+              <ul className="space-y-2">
+                <li><a href="#services" className="text-white hover:text-secondary transition-colors">Services</a></li>
+                <li><a href="#why-choose" className="text-white hover:text-secondary transition-colors">Why Us</a></li>
+                <li><a href="#testimonials" className="text-white hover:text-secondary transition-colors">Reviews</a></li>
+                <li><a href="#contact" className="text-white hover:text-secondary transition-colors">Contact</a></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-bold mb-4 text-white">Company</h4>
-              <ul className="space-y-2 text-white">
-                <li><a href="#why-choose" className="hover:text-secondary transition-colors">About Us</a></li>
-                <li><a href="#testimonials" className="hover:text-secondary transition-colors">Reviews</a></li>
-                <li><a href="#" className="hover:text-secondary transition-colors">Careers</a></li>
-                <li><a href="#contact" className="hover:text-secondary transition-colors">Contact</a></li>
+              <h4 className="font-bold text-lg mb-4">Contact</h4>
+              <ul className="space-y-2">
+                <li><a href="tel:+14049191860" className="text-white hover:text-secondary transition-colors">(404) 919-1860</a></li>
+                <li><a href="mailto:lemonadeblooms@gmail.com" className="text-white hover:text-secondary transition-colors">lemonadeblooms@gmail.com</a></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-bold mb-4 text-white">Quick Links</h4>
-              <ul className="space-y-2 text-white">
-                <li><a href="tel:+14049191860" className="hover:text-secondary transition-colors">(404) 919-1860</a></li>
-                <li><a href="mailto:lemonadeblooms@gmail.com" className="hover:text-secondary transition-colors">lemonadeblooms@gmail.com</a></li>
-                <li><a href="#" className="hover:text-secondary transition-colors">Privacy Policy</a></li>
-                <li><a href="#" className="hover:text-secondary transition-colors">Terms of Service</a></li>
-              </ul>
+              <h4 className="font-bold text-lg mb-4">Follow Us</h4>
+              <div className="flex gap-4">
+                <a href="#facebook" className="text-white hover:text-secondary transition-colors">
+                  <Facebook className="w-6 h-6" />
+                </a>
+                <a href="#instagram" className="text-white hover:text-secondary transition-colors">
+                  <Instagram className="w-6 h-6" />
+                </a>
+                <a href="#twitter" className="text-white hover:text-secondary transition-colors">
+                  <Twitter className="w-6 h-6" />
+                </a>
+                <a href="#linkedin" className="text-white hover:text-secondary transition-colors">
+                  <Linkedin className="w-6 h-6" />
+                </a>
+              </div>
             </div>
           </div>
-          <div className="border-t border-green-700 pt-8 text-center text-gray-100">
-            <p>&copy; 2024 Lemonade Bloom Haul Away. All rights reserved.</p>
+          <div className="border-t border-white/20 pt-8 text-center text-white/80">
+            <p>&copy; 2026 Lemonade Bloom Hauling. All rights reserved.</p>
           </div>
         </div>
       </footer>
 
       {/* Floating CTA Button */}
       {showFloatingCTA && (
-        <div className="fixed bottom-8 right-8 z-40 animate-float">
-          <Button
-            size="lg"
-            className="bg-secondary hover:bg-green-500 text-white rounded-full shadow-2xl hover:shadow-3xl transition-all font-bold text-lg"
-          >
-            <a href="tel:+14049191860" className="flex items-center gap-2">
-              <Phone className="w-6 h-6" />
-              Call Now
+        <div className="fixed bottom-8 right-8 z-40 animate-fade-in-up">
+          <Button className="bg-secondary hover:bg-green-500 text-white px-6 py-4 rounded-full shadow-2xl hover:shadow-3xl transition-all animate-pulse-glow">
+            <a href="#contact" className="flex items-center gap-2 text-white">
+              <MessageCircle className="w-5 h-5" />
+              Book Now
             </a>
           </Button>
         </div>
