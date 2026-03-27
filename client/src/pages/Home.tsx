@@ -4,6 +4,38 @@ import { ChevronRight, Leaf, Truck, CheckCircle, Star, Phone, Mail, MapPin, Send
 import { useState, useEffect } from "react";
 import { useForm, ValidationError } from "@formspree/react";
 
+// List of common valid email domains
+const VALID_EMAIL_DOMAINS = new Set([
+  'gmail.com', 'yahoo.com', 'outlook.com', 'hotmail.com', 'aol.com',
+  'icloud.com', 'mail.com', 'protonmail.com', 'zoho.com', 'yandex.com',
+  'gmx.com', 'fastmail.com', 'tutanota.com', 'mailbox.org', 'posteo.de',
+  'startmail.com', 'disroot.org', 'cock.li', 'riseup.net', 'proton.me',
+  // Add common business domains
+  'company.com', 'business.com', 'work.com', 'corporate.com',
+  // Add common regional domains
+  'co.uk', 'co.in', 'com.au', 'ca', 'de', 'fr', 'it', 'es', 'nl', 'be',
+  'ch', 'at', 'se', 'no', 'dk', 'fi', 'pl', 'cz', 'ie', 'pt', 'gr',
+  'jp', 'cn', 'in', 'br', 'mx', 'ru', 'za', 'nz', 'sg', 'hk', 'kr'
+]);
+
+const validateEmailDomain = (email: string): boolean => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) return false;
+  
+  const domain = email.split('@')[1]?.toLowerCase();
+  if (!domain) return false;
+  
+  // Check if domain has at least one dot
+  if (!domain.includes('.')) return false;
+  
+  // Check against common valid domains or if it's a custom domain with valid TLD
+  const tld = domain.split('.').pop();
+  if (!tld || tld.length < 2) return false;
+  
+  // Allow if it's in our valid domains list or has a valid TLD structure
+  return VALID_EMAIL_DOMAINS.has(domain) || /^[a-z0-9]+\.[a-z]{2,}$/.test(domain);
+};
+
 interface FormspreeError {
   field: string;
   message: string;
@@ -474,7 +506,15 @@ export default function Home() {
                     type="email"
                     name="email"
                     required
-                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-secondary focus:outline-none transition-colors"
+                    pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}"
+                    onBlur={(e) => {
+                      if (e.target.value && !validateEmailDomain(e.target.value)) {
+                        e.target.setCustomValidity('Please enter a valid email address');
+                      } else {
+                        e.target.setCustomValidity('');
+                      }
+                    }}
+                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-secondary focus:outline-none transition-colors invalid:border-red-500"
                     placeholder="john@example.com"
                   />
                   <ValidationError prefix="Email" field="email" errors={state.errors} />
