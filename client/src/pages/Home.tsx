@@ -377,6 +377,144 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Before & After Gallery Section */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-4xl font-bold text-center text-primary mb-4">Before & After Gallery</h2>
+          <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+            See the transformations we've made for our customers. Professional junk removal that makes a difference.
+          </p>
+
+          <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+            {[
+              {
+                title: "Garage Transformation",
+                before: "https://d2xsxph8kpxj0f.cloudfront.net/310519663439414161/AwKDmHFk4xyRYJ3UhPwEnr/before-after-garage-1-before-dQGxCrRyEvDYns4JkuyGrf.webp",
+                after: "https://d2xsxph8kpxj0f.cloudfront.net/310519663439414161/AwKDmHFk4xyRYJ3UhPwEnr/before-after-garage-1-after-csskTMJHDzeBxYj5pdZGEC.webp",
+              },
+              {
+                title: "Basement Cleanout",
+                before: "https://d2xsxph8kpxj0f.cloudfront.net/310519663439414161/AwKDmHFk4xyRYJ3UhPwEnr/before-after-basement-before-g9pmkNmXcZq6i3BN2QrbxV.webp",
+                after: "https://d2xsxph8kpxj0f.cloudfront.net/310519663439414161/AwKDmHFk4xyRYJ3UhPwEnr/before-after-basement-after-Sn9aPU9sfxdvbDdQujNpU.webp",
+              },
+              {
+                title: "Backyard Haul Away",
+                before: "https://d2xsxph8kpxj0f.cloudfront.net/310519663439414161/AwKDmHFk4xyRYJ3UhPwEnr/before-after-yard-before-GgCkyCaEEkXWj7zGFmDJ5U.webp",
+                after: "https://d2xsxph8kpxj0f.cloudfront.net/310519663439414161/AwKDmHFk4xyRYJ3UhPwEnr/before-after-yard-after-JYnuGfeSt7YdwhmDLd2iRq.webp",
+              },
+            ].map((project, idx) => (
+              <Card
+                key={idx}
+                className="overflow-hidden border-2 border-gray-200 shadow-lg hover:shadow-xl transition-all hover:scale-105 duration-300 animate-fade-in-up"
+                style={{ animationDelay: `${idx * 0.1}s` }}
+              >
+                <div className="p-6 bg-gradient-to-r from-primary to-primary/80 text-white">
+                  <h3 className="text-xl font-bold">{project.title}</h3>
+                </div>
+                <div className="grid grid-cols-2 gap-4 p-6">
+                  <div>
+                    <p className="text-sm font-bold text-gray-600 mb-2">Before</p>
+                    <img src={project.before} alt={`${project.title} Before`} className="w-full h-48 object-cover rounded-lg" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-bold text-secondary mb-2">After</p>
+                    <img src={project.after} alt={`${project.title} After`} className="w-full h-48 object-cover rounded-lg" />
+                  </div>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Booking Calendar Section */}
+      <section className="py-20 bg-secondary text-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-5xl md:text-6xl font-black text-center mb-4 drop-shadow-lg">Schedule Your Service</h2>
+          <p className="text-center text-white/90 mb-12 max-w-2xl mx-auto">
+            Pick your preferred date and time. We'll confirm your booking within 24 hours.
+          </p>
+
+          <div className="max-w-2xl mx-auto bg-white/10 border-2 border-white/20 rounded-2xl p-8 backdrop-blur-sm animate-fade-in-up">
+            <form className="space-y-6">
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-bold mb-2">Select Date</label>
+                  <input
+                    type="date"
+                    className="w-full px-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-secondary"
+                    min={new Date().toISOString().split('T')[0]}
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-bold mb-2">Select Time</label>
+                  <select className="w-full px-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-secondary">
+                    <option value="">Choose a time</option>
+                    <option value="08:00">8:00 AM - 10:00 AM</option>
+                    <option value="10:00">10:00 AM - 12:00 PM</option>
+                    <option value="12:00">12:00 PM - 2:00 PM</option>
+                    <option value="14:00">2:00 PM - 4:00 PM</option>
+                    <option value="16:00">4:00 PM - 6:00 PM</option>
+                  </select>
+                </div>
+              </div>
+              <div>
+                <label className="block text-sm font-bold mb-2">Service Type</label>
+                <select className="w-full px-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-secondary">
+                  <option value="">Select service</option>
+                  <option value="small">Small Haul ($99)</option>
+                  <option value="medium">Medium Haul ($199)</option>
+                  <option value="large">Large Haul ($299)</option>
+                </select>
+              </div>
+              <Button className="w-full bg-white text-secondary hover:bg-gray-100 font-bold py-3 text-lg">
+                Reserve Your Slot
+              </Button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      {/* Service Area Map Section */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-4xl font-bold text-center text-primary mb-4">Our Service Area</h2>
+          <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+            We serve Fairburn, GA and surrounding areas within a 50-mile radius. Fast, professional junk removal for your neighborhood.
+          </p>
+
+          <div className="max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-2xl border-2 border-gray-200 animate-fade-in-up">
+            <iframe
+              width="100%"
+              height="500"
+              frameBorder={0}
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3343.8447629463316!2d-84.6089!3d33.5627!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88f50f9b9b9b9b9b%3A0x9b9b9b9b9b9b9b9b!2sFairburn%2C%20GA%2030213!5e0!3m2!1sen!2sus!4v1234567890"
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8 mt-12 max-w-4xl mx-auto">
+            {[
+              { city: "Fairburn", miles: "Center" },
+              { city: "Atlanta", miles: "20 miles" },
+              { city: "Peachtree City", miles: "25 miles" },
+            ].map((location, idx) => (
+              <Card
+                key={idx}
+                className="p-6 border-2 border-gray-200 text-center hover:border-secondary transition-all hover:shadow-lg animate-fade-in-up"
+                style={{ animationDelay: `${idx * 0.1}s` }}
+              >
+                <MapPin className="w-8 h-8 text-secondary mx-auto mb-3" />
+                <h3 className="font-bold text-lg text-primary mb-1">{location.city}</h3>
+                <p className="text-gray-600">{location.miles}</p>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Testimonials Section */}
       <section id="testimonials" className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
