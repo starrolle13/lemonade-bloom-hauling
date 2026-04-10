@@ -101,12 +101,13 @@ export default function Home() {
         }`}
       >
         <nav className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2 animate-fade-in-up">
-            <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-              <Truck className="w-6 h-6 text-white" />
-            </div>
-            <span className="font-bold text-lg text-primary">Lemonade Bloom</span>
-          </div>
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            className="flex items-center gap-2 animate-fade-in-up hover:opacity-80 transition-opacity cursor-pointer"
+          >
+            <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663439414161/AwKDmHFk4xyRYJ3UhPwEnr/favicon-transparent-nZgrjiSu8ALua9QWFUzxHN.webp" alt="Lemonade Bloom Haul Away" className="w-16 h-16" />
+            <span className="font-bold text-lg text-primary">Lemonade Bloom Haul Away</span>
+          </button>
           <div className="hidden md:flex gap-8">
             <a href="#services" className="text-gray-700 hover:text-primary transition-colors font-medium">
               Services
@@ -121,21 +122,7 @@ export default function Home() {
               Contact
             </a>
           </div>
-          {/* Social Media Icons */}
-          <div className="flex gap-3 mr-4">
-            <a href="#facebook" className="text-secondary hover:text-primary transition-colors">
-              <Facebook className="w-5 h-5" />
-            </a>
-            <a href="#instagram" className="text-secondary hover:text-primary transition-colors">
-              <Instagram className="w-5 h-5" />
-            </a>
-            <a href="#twitter" className="text-secondary hover:text-primary transition-colors">
-              <Twitter className="w-5 h-5" />
-            </a>
-            <a href="#linkedin" className="text-secondary hover:text-primary transition-colors">
-              <Linkedin className="w-5 h-5" />
-            </a>
-          </div>
+
           <Button className="bg-primary hover:bg-primary/90 text-white shadow-lg hover:shadow-xl transition-all">
             <a href="tel:+14049191860" className="flex items-center gap-2 text-white">
               <Phone className="w-4 h-4" />
@@ -146,11 +133,14 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-screen md:h-screen flex items-center justify-center overflow-hidden">
         <div
-          className="absolute inset-0 bg-cover bg-center"
+          className="absolute inset-0 bg-cover bg-no-repeat"
           style={{
-            backgroundImage: `url('https://d2xsxph8kpxj0f.cloudfront.net/310519663439414161/AwKDmHFk4xyRYJ3UhPwEnr/hero-junk-hauling-black-woman-csa2kyoviCQkocpzevPqQB.webp')`,
+            backgroundImage: `url('https://d2xsxph8kpxj0f.cloudfront.net/310519663439414161/AwKDmHFk4xyRYJ3UhPwEnr/hero-junk-hauling-mobile-B6KrNPPnNCCZ3QRa83BPaa.webp')`,
+            backgroundPosition: 'center',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
           }}
         >
           <div className="absolute inset-0 bg-black/40"></div>
@@ -217,14 +207,11 @@ export default function Home() {
                   className="bg-white/10 border-white/20 text-white p-8 rounded-xl hover:bg-white/20 transition-all duration-300 animate-fade-in-up"
                   style={{ animationDelay: `${idx * 0.1}s` }}
                 >
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
-                      <Icon className="w-6 h-6" />
-                    </div>
-                    <h3 className="text-2xl font-bold">{item.step}</h3>
+                  <div className="flex items-center justify-center w-12 h-12 bg-white/20 rounded-full mb-4 mx-auto">
+                    <Icon className="w-6 h-6" />
                   </div>
-                  <h4 className="text-xl font-bold mb-3">{item.title}</h4>
-                  <p className="text-white/90">{item.description}</p>
+                  <h3 className="text-xl font-bold text-center mb-3">{item.title}</h3>
+                  <p className="text-white/90 text-center">{item.description}</p>
                 </Card>
               );
             })}
@@ -232,52 +219,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Services Section */}
-      <section id="services" className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center text-primary mb-4">Our Services</h2>
-          <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
-            We handle all types of junk removal and hauling needs with professional care and eco-friendly disposal.
-          </p>
-
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {[
-              {
-                title: "Residential Haul",
-                description: "Home cleanouts, garage junk removal, basement decluttering, and more.",
-                icon: Truck,
-              },
-              {
-                title: "Commercial Haul",
-                description: "Office cleanouts, construction debris removal, and business waste management.",
-                icon: Leaf,
-              },
-              {
-                title: "Same-Day Service",
-                description: "Need it gone today? We offer same-day junk removal appointments.",
-                icon: CheckCircle,
-              },
-            ].map((service, idx) => {
-              const Icon = service.icon;
-              return (
-                <Card
-                  key={idx}
-                  className="p-8 border-2 border-gray-200 shadow-lg hover:shadow-xl hover:border-secondary transition-all hover:scale-105 hover:-translate-y-2 duration-300 animate-fade-in-up"
-                  style={{ animationDelay: `${idx * 0.1}s` }}
-                >
-                  <div className="w-16 h-16 bg-secondary/10 rounded-lg flex items-center justify-center mb-4">
-                    <Icon className="w-8 h-8 text-secondary" />
-                  </div>
-                  <h3 className="text-xl font-bold text-primary mb-3">{service.title}</h3>
-                  <p className="text-gray-600">{service.description}</p>
-                </Card>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Why Choose Us Section - Green Background */}
+      {/* Why Choose Us Section */}
       <section id="why-choose" className="py-20 bg-secondary text-white">
         <div className="container mx-auto px-4">
           <h2 className="text-5xl md:text-6xl font-black text-center mb-12 drop-shadow-lg">Why Choose Lemonade Bloom</h2>
@@ -302,77 +244,63 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Pricing Section */}
+      {/* Our Guarantee Section */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center text-primary mb-4">Simple Pricing</h2>
+          <h2 className="text-4xl font-bold text-center text-primary mb-4">Our Guarantee</h2>
           <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
-            Transparent pricing with no hidden fees. Choose the package that fits your needs.
+            We provide custom quotes for every project. No hidden fees, no surprises—just honest pricing based on your specific needs.
           </p>
 
           <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             {[
               {
-                name: "Small Haul",
-                price: "$99",
-                features: ["Small Haul Cleanout", "Same-Day Service", "Eco-Friendly Disposal"],
+                icon: MessageCircle,
+                title: "Free Quote",
+                description: "Text us a photo of your junk and get a custom quote within 2 hours. No obligation.",
               },
               {
-                name: "Medium Haul",
-                price: "$199",
-                features: ["Medium Junk Removal", "Priority Scheduling", "Recycling & Donation", "Free Quote"],
-                highlighted: true,
+                icon: CheckCircle,
+                title: "Transparent Pricing",
+                description: "What you see is what you pay. We never add surprise fees or charges after the job.",
               },
               {
-                name: "Large Haul",
-                price: "$299",
-                features: ["Large Property Cleanout", "24/7 Support", "Complete Cleanup", "Guaranteed Satisfaction"],
+                icon: Truck,
+                title: "Professional Service",
+                description: "Experienced team handles your junk removal with care. Same-day appointments available.",
               },
-            ].map((plan, idx) => (
-              <Card
-                key={idx}
-                className={`p-8 border-2 shadow-lg hover:shadow-xl transition-all hover:scale-105 hover:-translate-y-2 duration-300 animate-fade-in-up flex flex-col ${
-                  plan.highlighted
-                    ? "bg-primary text-white border-secondary"
-                    : "bg-white text-gray-900 border-gray-200"
-                }`}
-                style={{ animationDelay: `${idx * 0.1}s` }}
-              >
-                <h3 className={`text-2xl font-bold mb-2 ${
-                  plan.highlighted ? "text-white" : "text-primary"
-                }`}>
-                  {plan.name}
-                </h3>
-                <div className={`text-4xl font-bold mb-6 ${
-                  plan.highlighted ? "text-green-300" : "text-secondary"
-                }`}>
-                  {plan.price}
-                </div>
-                <ul className="space-y-3 mb-8 flex-grow">
-                  {plan.features.map((feature, i) => (
-                    <li key={i} className="flex items-center gap-2">
-                      <CheckCircle className={`w-5 h-5 ${
-                        plan.highlighted ? "text-green-300" : "text-secondary"
-                      }`} />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-                <Button
-                  className={`w-full ${
-                    plan.highlighted
-                      ? "bg-white text-primary hover:bg-gray-100"
-                      : "bg-primary text-white hover:bg-primary/90"
-                  }`}
+            ].map((item, idx) => {
+              const Icon = item.icon;
+              return (
+                <Card
+                  key={idx}
+                  className="p-8 border-2 border-gray-200 shadow-lg hover:shadow-xl transition-all hover:border-secondary duration-300 animate-fade-in-up flex flex-col"
+                  style={{ animationDelay: `${idx * 0.1}s` }}
                 >
-                  <a href="#contact" className={`w-full ${
-                    plan.highlighted ? "text-primary" : "text-white"
-                  }`}>
-                    Book Now
-                  </a>
-                </Button>
-              </Card>
-            ))}
+                  <Icon className="w-12 h-12 text-secondary mb-4" />
+                  <h3 className="text-2xl font-bold mb-3 text-primary">{item.title}</h3>
+                  <p className="text-gray-600 flex-grow">{item.description}</p>
+                </Card>
+              );
+            })}
+          </div>
+
+          <div className="mt-12 text-center">
+            <p className="text-lg text-gray-700 mb-6">Ready to get started? Text us your photo or book a consultation.</p>
+            <div className="flex gap-4 justify-center flex-wrap">
+              <Button className="bg-secondary hover:bg-green-500 text-white px-8 py-3 text-lg font-bold shadow-lg">
+                <a href="tel:+14049191860" className="flex items-center gap-2 text-white">
+                  <Phone className="w-5 h-5" />
+                  Text (404) 919-1860
+                </a>
+              </Button>
+              <Button className="bg-primary hover:bg-primary/90 text-white px-8 py-3 text-lg font-bold shadow-lg">
+                <a href="#contact" className="flex items-center gap-2 text-white">
+                  <Mail className="w-5 h-5" />
+                  Email Us
+                </a>
+              </Button>
+            </div>
           </div>
         </div>
       </section>
@@ -394,32 +322,32 @@ export default function Home() {
               },
               {
                 title: "Basement Cleanout",
-                before: "https://d2xsxph8kpxj0f.cloudfront.net/310519663439414161/AwKDmHFk4xyRYJ3UhPwEnr/before-after-basement-before-g9pmkNmXcZq6i3BN2QrbxV.webp",
-                after: "https://d2xsxph8kpxj0f.cloudfront.net/310519663439414161/AwKDmHFk4xyRYJ3UhPwEnr/before-after-basement-after-Sn9aPU9sfxdvbDdQujNpU.webp",
+                before: "https://d2xsxph8kpxj0f.cloudfront.net/310519663439414161/AwKDmHFk4xyRYJ3UhPwEnr/before-after-basement-before-Yd6rkYPPvLKTJKfLVVnJwu.webp",
+                after: "https://d2xsxph8kpxj0f.cloudfront.net/310519663439414161/AwKDmHFk4xyRYJ3UhPwEnr/basement-cleanout-after-2qKyNnZLvDJqxBzrYzV9Uh.webp",
               },
               {
-                title: "Backyard Haul Away",
-                before: "https://d2xsxph8kpxj0f.cloudfront.net/310519663439414161/AwKDmHFk4xyRYJ3UhPwEnr/before-after-yard-before-GgCkyCaEEkXWj7zGFmDJ5U.webp",
-                after: "https://d2xsxph8kpxj0f.cloudfront.net/310519663439414161/AwKDmHFk4xyRYJ3UhPwEnr/before-after-yard-after-JYnuGfeSt7YdwhmDLd2iRq.webp",
+                title: "Yard Cleanup",
+                before: "https://d2xsxph8kpxj0f.cloudfront.net/310519663439414161/AwKDmHFk4xyRYJ3UhPwEnr/before-after-yard-before-Yd6rkYPPvLKTJKfLVVnJwu.webp",
+                after: "https://d2xsxph8kpxj0f.cloudfront.net/310519663439414161/AwKDmHFk4xyRYJ3UhPwEnr/before-after-yard-after-csskTMJHDzeBxYj5pdZGEC.webp",
               },
             ].map((project, idx) => (
               <Card
                 key={idx}
-                className="overflow-hidden border-2 border-gray-200 shadow-lg hover:shadow-xl transition-all hover:scale-105 duration-300 animate-fade-in-up"
+                className="overflow-hidden border-2 border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300 animate-fade-in-up"
                 style={{ animationDelay: `${idx * 0.1}s` }}
               >
-                <div className="p-6 bg-gradient-to-r from-primary to-primary/80 text-white">
-                  <h3 className="text-xl font-bold">{project.title}</h3>
-                </div>
-                <div className="grid grid-cols-2 gap-4 p-6">
+                <div className="grid grid-cols-2 gap-4 p-4">
                   <div>
                     <p className="text-sm font-bold text-gray-600 mb-2">Before</p>
                     <img src={project.before} alt={`${project.title} Before`} className="w-full h-48 object-cover rounded-lg" />
                   </div>
                   <div>
-                    <p className="text-sm font-bold text-secondary mb-2">After</p>
+                    <p className="text-sm font-bold text-gray-600 mb-2">After</p>
                     <img src={project.after} alt={`${project.title} After`} className="w-full h-48 object-cover rounded-lg" />
                   </div>
+                </div>
+                <div className="p-4 bg-gray-50">
+                  <h3 className="font-bold text-lg text-primary">{project.title}</h3>
                 </div>
               </Card>
             ))}
@@ -427,50 +355,68 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Booking Calendar Section */}
-      <section className="py-20 bg-secondary text-white">
+      {/* Testimonials Section */}
+      <section id="testimonials" className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
-          <h2 className="text-5xl md:text-6xl font-black text-center mb-4 drop-shadow-lg">Schedule Your Service</h2>
+          <h2 className="text-4xl font-bold text-center text-primary mb-12">What Our Customers Say</h2>
+
+          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            {[
+              {
+                name: "Sarah Johnson",
+                text: "Lemonade Bloom made my garage cleanup so easy! Professional, fast, and affordable. Highly recommend!",
+                rating: 5,
+              },
+              {
+                name: "Michael Chen",
+                text: "Best junk removal service I've used. They showed up on time, worked efficiently, and left everything clean.",
+                rating: 5,
+              },
+              {
+                name: "Jessica Martinez",
+                text: "Amazing service! They handled my entire basement cleanout with care. Will definitely use them again.",
+                rating: 5,
+              },
+            ].map((review, idx) => (
+              <Card
+                key={idx}
+                data-review
+                data-index={idx}
+                className={`p-8 border-2 border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300 ${
+                  visibleReviews.includes(idx) ? "animate-slide-up" : "opacity-0"
+                }`}
+                style={{ animationDelay: `${idx * 0.1}s` }}
+              >
+                <div className="flex gap-1 mb-4">
+                  {[...Array(review.rating)].map((_, i) => (
+                    <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                  ))}
+                </div>
+                <p className="text-gray-700 mb-4 italic">"{review.text}"</p>
+                <p className="font-bold text-primary">{review.name}</p>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Book Your Service Section */}
+      <section id="booking" className="py-20 bg-secondary text-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-4xl font-bold text-center mb-4">Book Your Service</h2>
           <p className="text-center text-white/90 mb-12 max-w-2xl mx-auto">
             Pick your preferred date and time. We'll confirm your booking within 24 hours.
           </p>
 
           <div className="max-w-2xl mx-auto bg-white/10 border-2 border-white/20 rounded-2xl p-8 backdrop-blur-sm animate-fade-in-up">
-            <form className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-bold mb-2">Select Date</label>
-                  <input
-                    type="date"
-                    className="w-full px-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-secondary"
-                    min={new Date().toISOString().split('T')[0]}
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-bold mb-2">Select Time</label>
-                  <select className="w-full px-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-secondary">
-                    <option value="">Choose a time</option>
-                    <option value="08:00">8:00 AM - 10:00 AM</option>
-                    <option value="10:00">10:00 AM - 12:00 PM</option>
-                    <option value="12:00">12:00 PM - 2:00 PM</option>
-                    <option value="14:00">2:00 PM - 4:00 PM</option>
-                    <option value="16:00">4:00 PM - 6:00 PM</option>
-                  </select>
-                </div>
-              </div>
-              <div>
-                <label className="block text-sm font-bold mb-2">Service Type</label>
-                <select className="w-full px-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-secondary">
-                  <option value="">Select service</option>
-                  <option value="small">Small Haul ($99)</option>
-                  <option value="medium">Medium Haul ($199)</option>
-                  <option value="large">Large Haul ($299)</option>
-                </select>
-              </div>
-              <Button className="w-full bg-white text-secondary hover:bg-gray-100 font-bold py-3 text-lg">
-                Reserve Your Slot
-              </Button>
-            </form>
+            <iframe
+              src="https://calendly.com/lemonadeblooms/junkremoval?hide_event_type=1&hide_gdpr_banner=1"
+              width="100%"
+              height="600"
+              frameBorder="0"
+              title="Book Your Junk Removal Service"
+              style={{ border: 'none', borderRadius: '12px' }}
+            ></iframe>
           </div>
         </div>
       </section>
@@ -515,179 +461,112 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section id="testimonials" className="py-20 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center text-primary mb-12">Customer Reviews</h2>
-
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {[
-              {
-                name: "Sarah Johnson",
-                text: "Best junk removal service I've used! Professional, fast, and affordable.",
-                rating: 5,
-              },
-              {
-                name: "Michael Chen",
-                text: "They removed everything from my garage in just 2 hours. Highly recommend!",
-                rating: 5,
-              },
-              {
-                name: "Jessica Williams",
-                text: "Excellent customer service and they recycled most of my items. Thank you!",
-                rating: 5,
-              },
-            ].map((review, idx) => (
-              <Card
-                key={idx}
-                data-review
-                data-index={idx}
-                className={`p-8 border-2 border-gray-200 shadow-lg rounded-xl transition-all duration-500 ${
-                  visibleReviews.includes(idx)
-                    ? "animate-slide-up opacity-100"
-                    : "opacity-0 translate-y-8"
-                }`}
-              >
-                <div className="flex gap-1 mb-4">
-                  {Array(review.rating)
-                    .fill(0)
-                    .map((_, i) => (
-                      <Star key={i} className="w-5 h-5 fill-secondary text-secondary" />
-                    ))}
-                </div>
-                <p className="text-gray-700 mb-4 italic">"{review.text}"</p>
-                <p className="font-bold text-primary">{review.name}</p>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Contact Section */}
-      <section id="contact" className="py-20 bg-white">
+      <section id="contact" className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-bold text-center text-primary mb-4">Get In Touch</h2>
           <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
-            Ready to get your space cleared? Contact us today or text a photo for a quick quote.
+            Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
           </p>
 
-          {/* Contact Methods */}
-          <div className="grid md:grid-cols-3 gap-8 mb-12 max-w-4xl mx-auto">
+          <div className="max-w-2xl mx-auto bg-white p-8 rounded-2xl shadow-lg border-2 border-gray-200 animate-fade-in-up">
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                <label className="block text-sm font-bold mb-2 text-gray-700">Your Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  required
+                  className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-secondary focus:outline-none transition-colors"
+                  placeholder="John Doe"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-bold mb-2 text-gray-700">Email Address</label>
+                <input
+                  type="email"
+                  name="email"
+                  required
+                  className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-secondary focus:outline-none transition-colors"
+                  placeholder="you@example.com"
+                />
+                <ValidationError prefix="Email" field="email" errors={state.errors} />
+              </div>
+
+              <div>
+                <label className="block text-sm font-bold mb-2 text-gray-700">Phone Number</label>
+                <input
+                  type="tel"
+                  name="phone"
+                  className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-secondary focus:outline-none transition-colors"
+                  placeholder="(404) 919-1860"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-bold mb-2 text-gray-700">Message</label>
+                <textarea
+                  name="message"
+                  required
+                  rows={5}
+                  className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-secondary focus:outline-none transition-colors resize-none"
+                  placeholder="Tell us about your junk removal needs..."
+                ></textarea>
+                <ValidationError prefix="Message" field="message" errors={state.errors} />
+              </div>
+
+              <Button
+                type="submit"
+                disabled={state.submitting}
+                className="w-full bg-secondary hover:bg-green-500 text-white font-bold py-3 text-lg shadow-lg hover:shadow-xl transition-all"
+              >
+                <span className="flex items-center justify-center gap-2">
+                  <Send className="w-5 h-5" />
+                  {state.submitting ? "Sending..." : "Send Message"}
+                </span>
+              </Button>
+
+              {state.succeeded && (
+                <div className="p-4 bg-green-100 border-2 border-green-500 rounded-lg text-green-700 font-bold text-center">
+                  Thanks for reaching out! We'll be in touch soon.
+                </div>
+              )}
+            </form>
+          </div>
+
+          <div className="mt-12 grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             {[
-              {
-                icon: Phone,
-                title: "Call Us",
-                content: "(404) 919-1860",
-                link: "tel:+14049191860",
-              },
-              {
-                icon: MessageCircle,
-                title: "Text for Quote",
-                content: "(404) 919-1860",
-                link: "sms:+14049191860",
-              },
-              {
-                icon: Mail,
-                title: "Email Us",
-                content: "lemonadeblooms@gmail.com",
-                link: "mailto:lemonadeblooms@gmail.com",
-              },
+              { icon: Phone, label: "Call Us", value: "(404) 919-1860" },
+              { icon: Mail, label: "Email Us", value: "lemonadeblooms@gmail.com" },
+              { icon: MapPin, label: "Service Area", value: "Fairburn, GA & 50 mi radius" },
             ].map((contact, idx) => {
               const Icon = contact.icon;
               return (
                 <Card
                   key={idx}
-                  className="p-8 border-2 border-gray-200 shadow-lg hover:shadow-xl hover:border-secondary transition-all text-center rounded-xl animate-fade-in-up"
+                  className="p-6 border-2 border-gray-200 text-center hover:border-secondary transition-all hover:shadow-lg animate-fade-in-up"
                   style={{ animationDelay: `${idx * 0.1}s` }}
                 >
-                  <div className="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Icon className="w-8 h-8 text-secondary" />
-                  </div>
-                  <h3 className="text-xl font-bold text-primary mb-2">{contact.title}</h3>
-                  <a
-                    href={contact.link}
-                    className="text-gray-700 hover:text-secondary transition-colors text-center block font-semibold break-all"
-                  >
-                    {contact.content}
-                  </a>
+                  <Icon className="w-8 h-8 text-secondary mx-auto mb-3" />
+                  <p className="text-sm font-bold text-gray-600 mb-1">{contact.label}</p>
+                  <p className="font-bold text-primary">{contact.value}</p>
                 </Card>
               );
             })}
-          </div>
-
-          {/* Contact Form */}
-          <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-2xl p-8 border-2 border-gray-200 animate-fade-in-up">
-            <h3 className="text-2xl font-bold text-primary mb-6">Book Your Service</h3>
-            {state.succeeded ? (
-              <div className="text-center py-8">
-                <p className="text-green-600 font-bold text-lg mb-4">✓ Message sent successfully!</p>
-                <p className="text-gray-600">We'll contact you shortly to confirm your booking.</p>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-bold text-gray-700 mb-2">Your Name</label>
-                  <input
-                    id="name"
-                    type="text"
-                    name="name"
-                    required
-                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-secondary focus:outline-none transition-colors"
-                    placeholder="John Doe"
-                  />
-                  <ValidationError prefix="Name" field="name" errors={state.errors} />
-                </div>
-                <div>
-                  <label htmlFor="email" className="block text-sm font-bold text-gray-700 mb-2">Your Email</label>
-                  <input
-                    id="email"
-                    type="email"
-                    name="email"
-                    required
-                    pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}"
-                    onBlur={(e) => {
-                      if (e.target.value && !validateEmailDomain(e.target.value)) {
-                        e.target.setCustomValidity('Please enter a valid email address');
-                      } else {
-                        e.target.setCustomValidity('');
-                      }
-                    }}
-                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-secondary focus:outline-none transition-colors invalid:border-red-500"
-                    placeholder="john@example.com"
-                  />
-                  <ValidationError prefix="Email" field="email" errors={state.errors} />
-                </div>
-                <div>
-                  <label htmlFor="message" className="block text-sm font-bold text-gray-700 mb-2">Service Details</label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    required
-                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-secondary focus:outline-none transition-colors h-32 resize-none"
-                    placeholder="Describe your junk removal needs (e.g., small haul, medium haul, large haul)..."
-                  ></textarea>
-                  <ValidationError prefix="Message" field="message" errors={state.errors} />
-                </div>
-                <Button
-                  type="submit"
-                  disabled={state.submitting}
-                  className="w-full bg-primary hover:bg-primary/90 text-white font-bold py-3 text-lg transition-all disabled:opacity-50"
-                >
-                  <Send className="w-5 h-5 mr-2" />
-                  {state.submitting ? "Sending..." : "Send Message"}
-                </Button>
-              </form>
-            )}
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-primary text-white py-12">
+      <footer className="py-12 bg-primary text-white">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
-              <h4 className="font-bold text-lg mb-4">Lemonade Bloom</h4>
+              <div className="flex items-center gap-2 mb-4">
+                <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663439414161/AwKDmHFk4xyRYJ3UhPwEnr/favicon-transparent-nZgrjiSu8ALua9QWFUzxHN.webp" alt="Lemonade Bloom Haul Away" className="w-16 h-16" />
+                <h4 className="font-bold text-lg">Lemonade Bloom Haul Away</h4>
+              </div>
               <p className="text-white/80">Professional junk removal and hauling services for your home and business.</p>
             </div>
             <div>
@@ -700,46 +579,38 @@ export default function Home() {
               </ul>
             </div>
             <div>
-              <h4 className="font-bold text-lg mb-4">Contact</h4>
+              <h4 className="font-bold text-lg mb-4">Services</h4>
               <ul className="space-y-2">
-                <li><a href="tel:+14049191860" className="text-white hover:text-secondary transition-colors">(404) 919-1860</a></li>
-                <li><a href="mailto:lemonadeblooms@gmail.com" className="text-white hover:text-secondary transition-colors">lemonadeblooms@gmail.com</a></li>
+                <li><a href="#" className="text-white hover:text-secondary transition-colors">Residential Junk Removal</a></li>
+                <li><a href="#" className="text-white hover:text-secondary transition-colors">Commercial Cleanout</a></li>
+                <li><a href="#" className="text-white hover:text-secondary transition-colors">Estate Cleanup</a></li>
+                <li><a href="#" className="text-white hover:text-secondary transition-colors">Eco-Friendly Disposal</a></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-bold text-lg mb-4">Follow Us</h4>
-              <div className="flex gap-4">
-                <a href="#facebook" className="text-white hover:text-secondary transition-colors">
-                  <Facebook className="w-6 h-6" />
-                </a>
-                <a href="#instagram" className="text-white hover:text-secondary transition-colors">
-                  <Instagram className="w-6 h-6" />
-                </a>
-                <a href="#twitter" className="text-white hover:text-secondary transition-colors">
-                  <Twitter className="w-6 h-6" />
-                </a>
-                <a href="#linkedin" className="text-white hover:text-secondary transition-colors">
-                  <Linkedin className="w-6 h-6" />
-                </a>
-              </div>
+              <h4 className="font-bold text-lg mb-4">Contact Info</h4>
+              <p className="text-white/80 mb-2">Phone: (404) 919-1860</p>
+              <p className="text-white/80 mb-4">Email: lemonadeblooms@gmail.com</p>
+              <p className="text-white/80">Service Area: Fairburn, GA & 50 mile radius</p>
             </div>
           </div>
-          <div className="border-t border-white/20 pt-8 text-center text-white/80">
-            <p>&copy; 2026 Lemonade Bloom Hauling. All rights reserved.</p>
+
+          <div className="border-t border-white/20 pt-8">
+            <p className="text-center text-white/80">
+              © 2026 Lemonade Bloom Haul Away. All rights reserved. | Professional Junk Removal Services
+            </p>
           </div>
         </div>
       </footer>
 
       {/* Floating CTA Button */}
       {showFloatingCTA && (
-        <div className="fixed bottom-8 right-8 z-40 animate-fade-in-up">
-          <Button className="bg-secondary hover:bg-green-500 text-white px-6 py-4 rounded-full shadow-2xl hover:shadow-3xl transition-all animate-pulse-glow">
-            <a href="#contact" className="flex items-center gap-2 text-white">
-              <MessageCircle className="w-5 h-5" />
-              Book Now
-            </a>
-          </Button>
-        </div>
+        <button
+          onClick={() => window.location.href = "tel:+14049191860"}
+          className="fixed bottom-8 right-8 bg-secondary hover:bg-green-500 text-white rounded-full p-4 shadow-2xl hover:shadow-3xl transition-all z-40 animate-pulse-glow"
+        >
+          <Phone className="w-6 h-6" />
+        </button>
       )}
     </div>
   );
